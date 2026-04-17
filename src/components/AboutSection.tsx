@@ -3,9 +3,9 @@ import { MapPin, Briefcase, GraduationCap } from "lucide-react";
 import developerPhoto from "@/assets/developer-photo.png";
 
 const stats = [
-  { value: "5+", label: "Years Experience" },
-  { value: "30+", label: "Apps Shipped" },
-  { value: "400K+", label: "Total Downloads" },
+  { value: "3+", label: "Years Experience" },
+  { value: "30+", label: "Project Done (App+Web)" },
+  { value: "400K+", label: "App Shipped" },
   { value: "4.8", label: "Avg Store Rating" },
 ];
 
@@ -68,18 +68,18 @@ const AboutSection = () => {
               </div>
             </motion.div>
             <p className="text-muted-foreground font-body leading-relaxed text-lg">
-           Mobile Application Developer with 3+ years of experience in building scalable and high-performance applications.
-Skilled in both mobile and web application development, with a strong current focus on cross-platform mobile solutions.
+              Mobile Application Developer with 3+ years of experience in building scalable and high-performance applications.
+              Skilled in both mobile and web application development, with a strong current focus on cross-platform mobile solutions.
 
             </p>
             <p className="text-muted-foreground font-body leading-relaxed">
-           Experienced in API integration, UI/UX optimization, and maintaining clean, efficient codebases.
-Passionate about delivering user-centric applications with modern technologies and best development practices.
+              Experienced in API integration, UI/UX optimization, and maintaining clean, efficient codebases.
+              Passionate about delivering user-centric applications with modern technologies and best development practices.
             </p>
             <div className="space-y-3 pt-4">
               {[
-                { icon: MapPin, text: "San Francisco, CA" },
-                { icon: Briefcase, text: "Open to freelance & contract work" },
+                { icon: MapPin, text: "Banasree C-Block,Road -04,Dhaka-1219,Bangladesh" },
+                { icon: Briefcase, text: "Open to new opportunities and freelance/contract work." },
                 { icon: GraduationCap, text: "B.S. Computer Science" },
               ].map((item, i) => (
                 <motion.div
@@ -98,31 +98,33 @@ Passionate about delivering user-centric applications with modern technologies a
             </div>
           </motion.div>
 
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid grid-cols-2 gap-4"
-          >
-            {stats.map((stat) => (
-              <motion.div
-                key={stat.label}
-                variants={statVariants}
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 0 30px hsl(160 100% 50% / 0.2)",
-                  transition: { duration: 0.3 },
-                }}
-                className="glass rounded-2xl p-6 text-center transition-shadow duration-500"
-              >
-                <div className="text-3xl md:text-4xl font-bold font-display text-gradient mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-muted-foreground font-display">{stat.label}</div>
-              </motion.div>
-            ))}
-          </motion.div>
+    <motion.div
+  variants={containerVariants}
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  className="grid grid-cols-2 gap-4"
+>
+  {stats.map((stat) => (
+    <motion.div
+      key={stat.label}
+      variants={statVariants}
+      whileHover={{
+        scale: 1.05,
+        boxShadow: "0 0 30px hsl(160 100% 50% / 0.2)",
+        transition: { duration: 0.3 },
+      }}
+      className="glass rounded-2xl p-6 flex flex-col items-center justify-center text-center transition-shadow duration-500"
+    >
+      <div className="text-3xl md:text-4xl font-bold font-display text-gradient mb-2">
+        {stat.value}
+      </div>
+      <div className="text-sm text-muted-foreground font-display">
+        {stat.label}
+      </div>
+    </motion.div>
+  ))}
+</motion.div>
         </div>
       </div>
     </section>
