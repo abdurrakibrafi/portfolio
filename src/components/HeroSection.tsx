@@ -158,8 +158,7 @@ const HeroSection = () => {
             animate="visible"
             className="text-lg md:text-xl text-muted-foreground font-body max-w-xl mb-10"
           >
-            Building pixel-perfect, performant iOS & Android applications
-            with Swift, Kotlin, React Native & Flutter.
+          Building Flutter (Dart) apps and intelligent AI-powered full-stack systems
           </motion.p>
 
           <motion.div

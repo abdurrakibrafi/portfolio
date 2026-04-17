@@ -68,13 +68,13 @@ const AboutSection = () => {
               </div>
             </motion.div>
             <p className="text-muted-foreground font-body leading-relaxed text-lg">
-              I'm a passionate mobile app developer specializing in building
-              high-performance, beautifully designed applications for iOS and Android.
+           Mobile Application Developer with 3+ years of experience in building scalable and high-performance applications.
+Skilled in both mobile and web application development, with a strong current focus on cross-platform mobile solutions.
+
             </p>
             <p className="text-muted-foreground font-body leading-relaxed">
-              From concept to App Store, I handle the full lifecycle — architecture,
-              UI/UX implementation, API integration, testing, and deployment. I care
-              deeply about smooth animations, accessibility, and delightful user experiences.
+           Experienced in API integration, UI/UX optimization, and maintaining clean, efficient codebases.
+Passionate about delivering user-centric applications with modern technologies and best development practices.
             </p>
             <div className="space-y-3 pt-4">
               {[
