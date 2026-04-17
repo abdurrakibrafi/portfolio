@@ -120,7 +120,7 @@ const HeroSection = () => {
           <motion.div custom={0} variants={textReveal} initial="hidden" animate="visible" className="mb-6">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-primary font-display text-sm">
               <Smartphone className="w-4 h-4" />
-              Mobile App Developer
+              Software Developer ( Mobile App & Web )
             </span>
           </motion.div>
 
@@ -132,7 +132,7 @@ const HeroSection = () => {
               animate="visible"
               className="text-5xl md:text-6xl lg:text-7xl font-bold font-display leading-tight mb-6"
             >
-              I craft{" "}
+              Turning ideas{" "}
               <motion.span
                 className="text-gradient inline-block"
                 animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
@@ -144,10 +144,10 @@ const HeroSection = () => {
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                mobile
+                into
               </motion.span>
               <br />
-              experiences
+              software
             </motion.h1>
           </div>
 

@@ -60,8 +60,8 @@ const Navbar = () => {
             <Code2 className="w-4 h-4 text-primary" />
           </motion.div>
           <span className="font-display font-bold text-sm hidden sm:block">
-            <span className="text-primary">dev</span>
-            <span className="text-muted-foreground">folio</span>
+            <span className="text-primary">Ra </span>
+            <span className="text-muted-foreground">Fi</span>
           </span>
         </a>
 

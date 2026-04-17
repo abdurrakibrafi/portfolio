@@ -63,8 +63,8 @@ const AboutSection = () => {
                 whileHover={{ scale: 1.1, rotate: 5 }}
               />
               <div>
-                <h3 className="font-display font-bold text-lg">Mobile Developer</h3>
-                <p className="text-sm text-muted-foreground">Crafting apps since 2021</p>
+                <h3 className="font-display font-bold text-lg">Abdur Rakib Rafi</h3>
+                <p className="text-sm text-muted-foreground">Software Developer - Since 2023</p>
               </div>
             </motion.div>
             <p className="text-muted-foreground font-body leading-relaxed text-lg">
