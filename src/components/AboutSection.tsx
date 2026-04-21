@@ -98,33 +98,33 @@ const AboutSection = () => {
             </div>
           </motion.div>
 
-    <motion.div
-  variants={containerVariants}
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  className="grid grid-cols-2 gap-4"
->
-  {stats.map((stat) => (
-    <motion.div
-      key={stat.label}
-      variants={statVariants}
-      whileHover={{
-        scale: 1.05,
-        boxShadow: "0 0 30px hsl(160 100% 50% / 0.2)",
-        transition: { duration: 0.3 },
-      }}
-      className="glass rounded-2xl p-6 flex flex-col items-center justify-center text-center transition-shadow duration-500"
-    >
-      <div className="text-3xl md:text-4xl font-bold font-display text-gradient mb-2">
-        {stat.value}
-      </div>
-      <div className="text-sm text-muted-foreground font-display">
-        {stat.label}
-      </div>
-    </motion.div>
-  ))}
-</motion.div>
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-2 gap-4"
+          >
+            {stats.map((stat) => (
+              <motion.div
+                key={stat.label}
+                variants={statVariants}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 0 30px hsl(160 100% 50% / 0.2)",
+                  transition: { duration: 0.3 },
+                }}
+                className="glass rounded-2xl p-6 flex flex-col items-center justify-center text-center transition-shadow duration-500"
+              >
+                <div className="text-3xl md:text-4xl font-bold font-display text-gradient mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-sm text-muted-foreground font-display">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </div>
     </section>

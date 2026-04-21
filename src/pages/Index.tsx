@@ -17,7 +17,7 @@ const Index = () => {
       <AboutSection />
       <ContactSection />
       <footer className="py-8 text-center text-muted-foreground font-display text-xs border-t border-border">
-        © 2026 — Built with passion & code
+        © 2026 Abdur Rakib Rafi — All Rights Reserved
       </footer>
     </div>
   );

@@ -34,8 +34,8 @@ const ContactSection = () => {
           <span className="text-primary font-display text-sm mb-2 block">// let's connect</span>
           <h2 className="text-3xl md:text-5xl font-bold font-display mb-6">Get in Touch</h2>
           <p className="text-muted-foreground font-body text-lg mb-10 max-w-xl mx-auto">
-            Have a project idea or want to collaborate? I’d love to hear from you. 
-            Let’s build something great together — open to opportunities and ready to be hired.
+            
+          Let’s build something great together — open to opportunities and ready to be hired.
           </p>
         </motion.div>
 
