@@ -5,7 +5,7 @@ import { Menu, X, Code2, Sparkles } from "lucide-react";
 const links = [
   { label: "Projects", href: "#projects", icon: "01" },
   { label: "Skills", href: "#skills", icon: "02" },
-  { label: "About", href: "#about", icon: "03" }, 
+  { label: "About", href: "#about", icon: "03" },
 ];
 
 const Navbar = () => {
@@ -100,7 +100,9 @@ const Navbar = () => {
         {/* CTA + Mobile Toggle */}
         <div className="flex items-center gap-3">
           <motion.a
-            href="#contact"
+            href="https://wa.me/8801743340330?text=Hey%20Abdur%20Rakib%20Rafi%2C%0A%0AAre%20you%20there%3F"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary text-primary-foreground font-display text-xs font-semibold"
             whileHover={{ scale: 1.05, boxShadow: "0 0 20px hsl(160 100% 50% / 0.3)" }}
             whileTap={{ scale: 0.95 }}

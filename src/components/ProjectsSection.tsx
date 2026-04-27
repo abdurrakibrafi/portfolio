@@ -1,39 +1,118 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import projectFitness from "@/assets/project-fitness.jpg";
+import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import primePilaties from "@/assets/prime_pilaties.webp";
 import projectFood from "@/assets/project-food.jpg";
 import projectFintech from "@/assets/project-fintech.jpg";
-import { HiChevronDown } from "react-icons/hi";
-import { Arrow } from "@radix-ui/react-tooltip";
-import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowRight, FaGooglePlay, FaAppStoreIos } from "react-icons/fa6";
+import { X } from "lucide-react";
 
 const projects = [
   {
-    title: "FitPulse",
-    description: "A fitness tracking app with real-time health metrics, workout plans, and social challenges. Built with SwiftUI and HealthKit.",
-    tags: ["iOS", "SwiftUI", "HealthKit"],
-    image: projectFitness,
-    downloads: "120K+",
+    title: "Prime Pilaties",
+    description: "A fitness class booking app where users can purchase credits to book classes, along with a built-in attendance management system to track and manage class participation efficiently.",
+    tags: ["iOS", "Android", "Flutter"],
+    image: primePilaties,
+    playStore: "https://play.google.com/store/apps/details?id=com.prime.pilates.app&hl=en",
+    appStore: "https://apps.apple.com/us/app/prime-pilates/id6741531586",
   },
   {
     title: "BiteRush",
     description: "On-demand food delivery platform with live order tracking, restaurant discovery, and AI-powered recommendations.",
     tags: ["React Native", "Node.js", "Maps API"],
     image: projectFood,
-    downloads: "85K+",
+    playStore: "https://play.google.com/store/apps/details?id=com.biterush",
+    appStore: "https://apps.apple.com/app/biterush/id987654321",
   },
   {
     title: "VaultPay",
     description: "Secure digital banking app with biometric auth, instant transfers, expense analytics, and investment tracking.",
     tags: ["Flutter", "Dart", "Firebase"],
     image: projectFintech,
-    downloads: "200K+",
+    playStore: "https://play.google.com/store/apps/details?id=com.vaultpay",
+    appStore: "https://apps.apple.com/app/vaultpay/id112233445",
   },
 ];
 
 const CARD_HEIGHT = 420;
 const CARD_GAP = 20;
 const STACK_OFFSET = 15;
+
+// ─── Store Popup ───────────────────────────────────────────────────────────────
+
+interface StorePopupProps {
+  project: typeof projects[number];
+  onClose: () => void;
+}
+
+const StorePopup = ({ project, onClose }: StorePopupProps) => (
+  <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    className="fixed inset-0 z-50 flex items-center justify-center px-4"
+    style={{ backgroundColor: "hsl(0 0% 0% / 0.6)", backdropFilter: "blur(6px)" }}
+    onClick={onClose}
+  >
+    <motion.div
+      initial={{ scale: 0.85, opacity: 0, y: 20 }}
+      animate={{ scale: 1, opacity: 1, y: 0 }}
+      exit={{ scale: 0.85, opacity: 0, y: 20 }}
+      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+      className="glass rounded-2xl p-8 max-w-sm w-full relative border"
+      style={{ borderColor: "hsl(160 100% 50% / 0.15)" }}
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* Close Button */}
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 w-7 h-7 rounded-full bg-secondary/60 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+      >
+        <X className="w-4 h-4" />
+      </button>
+
+      <p className="text-xs text-primary font-display mb-1">// download on</p>
+      <h3 className="text-xl font-bold font-display mb-6">{project.title}</h3>
+
+      <div className="flex flex-col gap-3">
+        {/* App Store */}
+        <motion.a
+          href={project.appStore}
+          target="_blank"
+          rel="noopener noreferrer"
+          whileHover={{ scale: 1.03, boxShadow: "0 0 20px hsl(160 100% 50% / 0.2)" }}
+          whileTap={{ scale: 0.97 }}
+          className="flex items-center gap-4 px-5 py-4 rounded-xl bg-primary/10 border border-primary/20 hover:border-primary/40 transition-colors group"
+        >
+          <FaAppStoreIos className="w-7 h-7 text-primary shrink-0" />
+          <div>
+            <p className="text-[10px] text-muted-foreground font-display">Download on the</p>
+            <p className="text-sm font-bold font-display">App Store</p>
+          </div>
+          <span className="ml-auto text-primary/40 group-hover:text-primary transition-colors text-sm">→</span>
+        </motion.a>
+
+        {/* Play Store */}
+        <motion.a
+          href={project.playStore}
+          target="_blank"
+          rel="noopener noreferrer"
+          whileHover={{ scale: 1.03, boxShadow: "0 0 20px hsl(160 100% 50% / 0.2)" }}
+          whileTap={{ scale: 0.97 }}
+          className="flex items-center gap-4 px-5 py-4 rounded-xl bg-primary/10 border border-primary/20 hover:border-primary/40 transition-colors group"
+        >
+          <FaGooglePlay className="w-6 h-6 text-primary shrink-0" />
+          <div>
+            <p className="text-[10px] text-muted-foreground font-display">Get it on</p>
+            <p className="text-sm font-bold font-display">Google Play</p>
+          </div>
+          <span className="ml-auto text-primary/40 group-hover:text-primary transition-colors text-sm">→</span>
+        </motion.a>
+      </div>
+    </motion.div>
+  </motion.div>
+);
+
+// ─── Sticky Card ───────────────────────────────────────────────────────────────
 
 interface StickyCardProps {
   project: typeof projects[number];
@@ -44,13 +123,13 @@ interface StickyCardProps {
 
 const StickyCard = ({ project, index, total, containerRef }: StickyCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  // Each card scales down slightly as user scrolls past it
   const cardProgress = useTransform(
     scrollYProgress,
     [index / total, (index + 1) / total],
@@ -64,78 +143,96 @@ const StickyCard = ({ project, index, total, containerRef }: StickyCardProps) =>
   );
 
   return (
-    <div
-      className="sticky"
-      style={{
-        top: `calc(80px + ${index * STACK_OFFSET}px)`,
-        height: `${CARD_HEIGHT}px`,
-        paddingBottom: `${CARD_GAP}px`,
-        zIndex: index + 1,
-      }}
-    >
-      <motion.div
-        ref={cardRef}
+    <>
+      <AnimatePresence>
+        {showPopup && (
+          <StorePopup project={project} onClose={() => setShowPopup(false)} />
+        )}
+      </AnimatePresence>
+
+      <div
+        className="sticky"
         style={{
-          scale: cardProgress,
-          opacity: cardOpacity,
+          top: `calc(80px + ${index * STACK_OFFSET}px)`,
+          height: `${CARD_HEIGHT}px`,
+          paddingBottom: `${CARD_GAP}px`,
+          zIndex: index + 1,
         }}
-        initial={{ opacity: 0, y: 60 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
-        className="glass rounded-2xl overflow-hidden group hover:glow-box transition-shadow duration-500 h-full"
-        data-cursor-hover
-        data-cursor-text="View"
       >
-        <div className="grid md:grid-cols-2 gap-0 h-full">
-          <div className="p-8 md:p-12 flex flex-col justify-center">
-            <div className="flex items-center gap-3 mb-4">
-              <h3 className="text-2xl md:text-3xl font-bold font-display">{project.title}</h3>
-              <motion.span
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3, type: "spring", stiffness: 300 }}
-                className="text-xs font-display text-primary px-2 py-1 rounded-full bg-primary/10"
-              >
-                {project.downloads} downloads
-              </motion.span>
-            </div>
-            <p className="text-muted-foreground font-body mb-6 leading-relaxed">
-              {project.description}
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {project.tags.map((tag, ti) => (
-                <motion.span
-                  key={tag}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+        <motion.div
+          ref={cardRef}
+          style={{ scale: cardProgress, opacity: cardOpacity }}
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          onClick={() => setShowPopup(true)}
+
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
+          className="glass rounded-2xl overflow-hidden group hover:glow-box transition-shadow duration-500 h-full"
+          data-cursor-hover
+          data-cursor-text="View"
+        >
+          <div className="grid md:grid-cols-2 gap-0 h-full">
+            {/* Left Content */}
+            <div className="p-8 md:p-12 flex flex-col justify-center">
+              <div className="flex items-center gap-3 mb-4">
+                <h3 className="text-2xl md:text-3xl font-bold font-display">{project.title}</h3>
+
+                {/* Downloads Badge → opens popup */}
+                <motion.button
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.4 + ti * 0.05 }}
-                  whileHover={{ scale: 1.1, backgroundColor: "hsl(160 100% 50% / 0.15)" }}
-                  className="px-3 py-1 rounded-md bg-secondary text-secondary-foreground font-display text-xs transition-colors"
+                  transition={{ delay: 0.3, type: "spring", stiffness: 300 }}
+                  whileHover={{ scale: 1.1, backgroundColor: "hsl(160 100% 50% / 0.2)" }}
+                  className="text-xs font-display text-primary px-2 py-1 rounded-full bg-primary/10 cursor-pointer flex items-center gap-1"
                 >
-                  {tag}
-                </motion.span>
-              ))}
+                  <FaGooglePlay className="w-2.5 h-2.5" />
+                  <FaAppStoreIos className="w-2.5 h-2.5" />
+                </motion.button>
+              </div>
+
+              <p className="text-muted-foreground font-body mb-6 leading-relaxed">
+                {project.description}
+              </p>
+
+              <div className="flex flex-wrap gap-2">
+                {project.tags.map((tag, ti) => (
+                  <motion.span
+                    key={tag}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.4 + ti * 0.05 }}
+                    whileHover={{ scale: 1.1, backgroundColor: "hsl(160 100% 50% / 0.15)" }}
+                    className="px-3 py-1 rounded-md bg-secondary text-secondary-foreground font-display text-xs transition-colors"
+                  >
+                    {tag}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Image */}
+            <div className="relative h-64 md:h-auto overflow-hidden">
+              <motion.img
+                src={project.image}
+                alt={project.title}
+                loading="lazy"
+                className="w-full h-full object-contain bg-black/20"  // 👈 object-cover → object-contain
+                whileHover={{ scale: 1.1 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-l from-transparent to-card/80 md:block hidden" />
             </div>
           </div>
-          <div className="relative h-64 md:h-auto overflow-hidden">
-            <motion.img
-              src={project.image}
-              alt={project.title}
-              loading="lazy"
-              className="w-full h-full object-cover"
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-l from-transparent to-card/80 md:block hidden" />
-          </div>
-        </div>
-      </motion.div>
-    </div>
+        </motion.div>
+      </div>
+    </>
   );
 };
+
+// ─── Projects Section ──────────────────────────────────────────────────────────
 
 const ProjectsSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -176,15 +273,17 @@ const ProjectsSection = () => {
             />
           ))}
         </div>
-         <div className="">
+
+        {/* Explore More Button */}
+        <div className="mt-12 flex justify-center">
           <button
-              type="submit"
-              className="flex justify-center gap-2 items-center mx-auto shadow-xl text-lg bg-transparent text-primary backdrop-blur-md lg:font-semibold isolation-auto border-primary before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-secondary 0hover:text-gray-50 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 overflow-hidden border-2 rounded-full group"
-            >
-              Explore More 
-              <FaArrowRight className="w-8 h-8 justify-end group-hover:rotate-0 text-primary group-hover:bg-transparent  ease-linear duration-300 rounded-full border border-primary group-hover:border-none p-2 -rotate-45" />
-</button>
-         </div>
+            type="button"
+            className="flex justify-center gap-2 items-center mx-auto shadow-xl text-lg bg-transparent text-primary backdrop-blur-md lg:font-semibold isolation-auto border-primary before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-secondary hover:text-gray-50 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 overflow-hidden border-2 rounded-full group"
+          >
+            Explore More
+            <FaArrowRight className="w-8 h-8 justify-end group-hover:rotate-0 text-primary group-hover:bg-transparent ease-linear duration-300 rounded-full border border-primary group-hover:border-none p-2 -rotate-45" />
+          </button>
+        </div>
       </div>
     </section>
   );

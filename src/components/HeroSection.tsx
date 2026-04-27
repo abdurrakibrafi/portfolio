@@ -7,7 +7,7 @@ import { FaFlutter } from "react-icons/fa6";
 import { SiFirebase } from "react-icons/si";
 import { FaDartLang } from "react-icons/fa6";
 import { DiSwift } from "react-icons/di";
-import { TbBrandKotlin } from "react-icons/tb"; 
+import { TbBrandKotlin } from "react-icons/tb";
 import app_store from "@/assets/app_store.svg";
 import flutter from "@/assets/flutter.svg";
 import firebase from "@/assets/firebase.svg";
@@ -27,7 +27,7 @@ const textReveal = {
 
 // Floating tech icons around the hero
 const floatingIcons = [
-  { icon:  <FcAndroidOs />, label: "Android", x: "8%", y: "18%", size: 48, delay: 0, duration: 5 },
+  { icon: <FcAndroidOs />, label: "Android", x: "8%", y: "18%", size: 48, delay: 0, duration: 5 },
   { icon: <img src={app_store} alt="apps" />, label: "iOS", x: "85%", y: "15%", size: 44, delay: 0.5, duration: 6 },
   { icon: <img src={flutter} alt="apps" />, label: "Flutter", x: "5%", y: "70%", size: 40, delay: 1, duration: 4.5 },
   { icon: <img src={firebase} alt="apps" />, label: "Firebase", x: "15%", y: "45%", size: 36, delay: 0.8, duration: 4 },
@@ -158,7 +158,7 @@ const HeroSection = () => {
             animate="visible"
             className="text-lg md:text-xl text-muted-foreground font-body max-w-xl mb-10"
           >
-          Building Flutter (Dart) apps and intelligent AI-powered full-stack systems
+            Building Flutter (Dart) apps and intelligent AI-powered full-stack systems
           </motion.p>
 
           <motion.div
@@ -169,13 +169,15 @@ const HeroSection = () => {
             className="flex flex-col sm:flex-row gap-4"
           >
             <motion.a
-              href="#projects"
+              href="https://drive.google.com/drive/folders/1cX3DzUC-gVV1RMPD0LzIBgcx2wAoBlv7?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.05, boxShadow: "0 0 30px hsl(160 100% 50% / 0.3)" }}
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-primary text-primary-foreground font-display font-semibold text-sm glow-box"
               data-cursor-text="Go"
             >
-              View Projects
+              Download CV
             </motion.a>
             <motion.a
               href="#contact"
@@ -198,14 +200,14 @@ const HeroSection = () => {
         >
           <div className="relative">
             <div className="absolute -inset-6 rounded-full bg-primary/20 blur-3xl animate-pulse-glow" />
-            
+
             {/* Rotating dashed ring */}
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               className="absolute -inset-4 rounded-full border-2 border-dashed border-primary/20"
             />
-            
+
             <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-primary via-primary/50 to-accent opacity-60 blur-sm" />
             <motion.img
               src={developerPhoto}
