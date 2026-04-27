@@ -1,17 +1,25 @@
 import { motion } from "framer-motion";
 
 const skills = [
-  { name: "Swift / SwiftUI", level: 95 },
-  { name: "Kotlin / Jetpack Compose", level: 90 },
-  { name: "React Native", level: 88 },
-  { name: "Flutter / Dart", level: 85 },
-  { name: "Firebase / Supabase", level: 82 },
-  { name: "CI/CD & App Store", level: 90 },
+  { name: "Dart / Flutter", level: 95 },
+  { name: "Javascript / React / Next.js / Node.js / Express.js", level: 90 },
+  { name: "Python", level: 88 },
+  { name: "Firebase / Supabase / MySQL ", level: 82 },
+  { name: "CI/CD & Play Store / Apple App Store", level: 90 },
+  { name: "Flutter Web / Responsive UI", level: 85 },       // নতুন
+  { name: "Apple Developer / iOS Deployment", level: 88 },  // নতুন
+  { name: "HTML / CSS / Tailwind CSS", level: 85 },         // নতুন
 ];
 
 const tools = [
   "Xcode", "Android Studio", "VS Code", "Figma", "Git",
-  "TestFlight", "Fastlane", "Firebase", "REST APIs", "GraphQL",
+  "Fastlane", "Firebase", "REST APIs", "GraphQL",
+  "TestFlight",      // iOS beta testing
+  "App Store Connect", // Apple deployment
+  "Tailwind CSS",    // JS web dev
+  "Vercel",          // web hosting/deploy
+  "Postman",         // API testing
+  "GitHub Actions",  // CI/CD
 ];
 
 const SkillsSection = () => {
