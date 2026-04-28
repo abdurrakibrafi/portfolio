@@ -214,13 +214,13 @@ const StickyCard = ({ project, index, total, containerRef }: StickyCardProps) =>
             </div>
 
             {/* Right Image */}
-            <div className="relative h-64 md:h-auto overflow-hidden">
+            <div className="relative h-full overflow-hidden flex items-center justify-center bg-black/30">
               <motion.img
                 src={project.image}
                 alt={project.title}
                 loading="lazy"
-                className="w-full h-full object-contain bg-black/20"  // 👈 object-cover → object-contain
-                whileHover={{ scale: 1.1 }}
+                className="w-[75%] h-[85%] object-contain drop-shadow-2xl"
+                whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
               />
               <div className="absolute inset-0 bg-gradient-to-l from-transparent to-card/80 md:block hidden" />
