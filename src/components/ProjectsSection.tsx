@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import primePilaties from "@/assets/prime_pilaties.webp";
-import projectFood from "@/assets/project-food.jpg";
-import projectFintech from "@/assets/project-fintech.jpg";
+import tasteUp from "@/assets/tasteUp.webp";
+import nofifyApp from "@/assets/nofify.webp";
 import { FaArrowRight, FaGooglePlay, FaAppStoreIos } from "react-icons/fa6";
 import { X } from "lucide-react";
 
@@ -16,24 +16,25 @@ const projects = [
     appStore: "https://apps.apple.com/us/app/prime-pilates/id6741531586",
   },
   {
-    title: "BiteRush",
-    description: "On-demand food delivery platform with live order tracking, restaurant discovery, and AI-powered recommendations.",
-    tags: ["React Native", "Node.js", "Maps API"],
-    image: projectFood,
-    playStore: "https://play.google.com/store/apps/details?id=com.biterush",
-    appStore: "https://apps.apple.com/app/biterush/id987654321",
+    title: "TasteUp",
+    description: "Seamless QR-based food ordering, smart nearby restaurant discovery, and an engaging gamified loyalty experience.",
+    tags: ["Flutter", "Node.js", "Maps API"],
+    image: tasteUp,
+    playStore: "https://play.google.com/store/apps/details?id=com.TasteHub.app&hl=en",
+    appStore: "https://apps.apple.com/jp/app/tasteup-app/id6751109669",
   },
   {
-    title: "VaultPay",
-    description: "Secure digital banking app with biometric auth, instant transfers, expense analytics, and investment tracking.",
-    tags: ["Flutter", "Dart", "Firebase"],
-    image: projectFintech,
-    playStore: "https://play.google.com/store/apps/details?id=com.vaultpay",
-    appStore: "https://apps.apple.com/app/vaultpay/id112233445",
+    title: "Nofify App",
+    description: "A task management app where users can assign real-time tasks, earn rewards based on completion, and access in-app purchases. ",
+    tags: ["Flutter", "Dart", "MongoDB"],
+    image: nofifyApp,
+    playStore: "https://play.google.com/store/apps/details?id=com.app.nofify_task&hl=en",
+    appStore: "https://apps.apple.com/pk/app/nofify/id6747436002",
   },
 ];
 
-const CARD_HEIGHT = 420;
+const CARD_HEIGHT_MOBILE = 580;
+const CARD_HEIGHT_DESKTOP = 420;
 const CARD_GAP = 20;
 const STACK_OFFSET = 15;
 
@@ -62,7 +63,6 @@ const StorePopup = ({ project, onClose }: StorePopupProps) => (
       style={{ borderColor: "hsl(160 100% 50% / 0.15)" }}
       onClick={(e) => e.stopPropagation()}
     >
-      {/* Close Button */}
       <button
         onClick={onClose}
         className="absolute top-4 right-4 w-7 h-7 rounded-full bg-secondary/60 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
@@ -74,7 +74,6 @@ const StorePopup = ({ project, onClose }: StorePopupProps) => (
       <h3 className="text-xl font-bold font-display mb-6">{project.title}</h3>
 
       <div className="flex flex-col gap-3">
-        {/* App Store */}
         <motion.a
           href={project.appStore}
           target="_blank"
@@ -91,7 +90,6 @@ const StorePopup = ({ project, onClose }: StorePopupProps) => (
           <span className="ml-auto text-primary/40 group-hover:text-primary transition-colors text-sm">→</span>
         </motion.a>
 
-        {/* Play Store */}
         <motion.a
           href={project.playStore}
           target="_blank"
@@ -154,7 +152,7 @@ const StickyCard = ({ project, index, total, containerRef }: StickyCardProps) =>
         className="sticky"
         style={{
           top: `calc(80px + ${index * STACK_OFFSET}px)`,
-          height: `${CARD_HEIGHT}px`,
+          height: `${CARD_HEIGHT_MOBILE}px`,
           paddingBottom: `${CARD_GAP}px`,
           zIndex: index + 1,
         }}
@@ -166,19 +164,17 @@ const StickyCard = ({ project, index, total, containerRef }: StickyCardProps) =>
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           onClick={() => setShowPopup(true)}
-
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
           className="glass rounded-2xl overflow-hidden group hover:glow-box transition-shadow duration-500 h-full"
           data-cursor-hover
           data-cursor-text="View"
         >
-          <div className="grid md:grid-cols-2 gap-0 h-full">
+          <div className="grid md:grid-cols-2 gap-0 h-full grid-rows-[1fr_220px] md:grid-rows-1">
+
             {/* Left Content */}
             <div className="p-8 md:p-12 flex flex-col justify-center">
               <div className="flex items-center gap-3 mb-4">
                 <h3 className="text-2xl md:text-3xl font-bold font-display">{project.title}</h3>
-
-                {/* Downloads Badge → opens popup */}
                 <motion.button
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
@@ -214,17 +210,18 @@ const StickyCard = ({ project, index, total, containerRef }: StickyCardProps) =>
             </div>
 
             {/* Right Image */}
-            <div className="relative h-full overflow-hidden flex items-center justify-center bg-black/30">
+            <div className="relative overflow-hidden flex items-center justify-center bg-black/30 h-full">
               <motion.img
                 src={project.image}
                 alt={project.title}
                 loading="lazy"
-                className="w-[75%] h-[85%] object-contain drop-shadow-2xl"
+                className="w-[85%] h-[90%] object-contain drop-shadow-2xl"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
               />
               <div className="absolute inset-0 bg-gradient-to-l from-transparent to-card/80 md:block hidden" />
             </div>
+
           </div>
         </motion.div>
       </div>
@@ -260,7 +257,7 @@ const ProjectsSection = () => {
         <div
           ref={containerRef}
           style={{
-            height: `${projects.length * CARD_HEIGHT + (projects.length - 1) * STACK_OFFSET}px`,
+            height: `${projects.length * CARD_HEIGHT_MOBILE + (projects.length - 1) * STACK_OFFSET}px`,
           }}
         >
           {projects.map((project, i) => (
@@ -276,13 +273,15 @@ const ProjectsSection = () => {
 
         {/* Explore More Button */}
         <div className="mt-12 flex justify-center">
-          <button
-            type="button"
+          <a  
+            href="http://drive.google.com/drive/folders/1pLrDX9gCw4AYvb45jEM4X3YeK_ef-Hrr"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex justify-center gap-2 items-center mx-auto shadow-xl text-lg bg-transparent text-primary backdrop-blur-md lg:font-semibold isolation-auto border-primary before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-secondary hover:text-gray-50 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 overflow-hidden border-2 rounded-full group"
           >
             Explore More
             <FaArrowRight className="w-8 h-8 justify-end group-hover:rotate-0 text-primary group-hover:bg-transparent ease-linear duration-300 rounded-full border border-primary group-hover:border-none p-2 -rotate-45" />
-          </button>
+          </a>  {/* ← এখানে শেষ */}
         </div>
       </div>
     </section>
