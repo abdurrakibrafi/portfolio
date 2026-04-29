@@ -5,7 +5,6 @@ import developerPhoto from "@/assets/developer-photo.png";
 const stats = [
   { value: "3+", label: "Years Experience" },
   { value: "30+", label: "Project Done (App+Web)" },
-  { value: "400K+", label: "App Shipped" },
   { value: "4.8", label: "Avg Store Rating" },
 ];
 
