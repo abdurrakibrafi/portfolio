@@ -464,15 +464,10 @@ const ProjectsSection = () => {
             </span>
           </div>
 
-          <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
-            <h2 className="max-w-2xl font-display text-4xl font-bold leading-[1.1] text-white sm:text-5xl lg:text-6xl">
-              Selected projects built with purpose.
-            </h2>
+          <div className="flex flex-col justify-between md:flex-row md:items-end">
+           
 
-            <p className="max-w-md font-body text-sm leading-7 text-[#9aaba5] sm:text-base">
-              A collection of mobile products focused on usability,
-              performance and meaningful user experiences.
-            </p>
+            
           </div>
         </motion.div>
 

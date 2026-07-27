@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import { Smartphone, ArrowDown } from "lucide-react";
-import developerPhoto from "@/assets/rafi.jpeg";
 import { FcAndroidOs } from "react-icons/fc";
-import app_store from "@/assets/app_store.svg";
+
+import developerPhoto from "@/assets/rafi.jpeg";
+import appStore from "@/assets/app_store.svg";
 import flutter from "@/assets/flutter.svg";
 import firebase from "@/assets/firebase.svg";
 import dart from "@/assets/dart.svg";
@@ -10,132 +11,234 @@ import swift from "@/assets/swift.svg";
 import kotlin from "@/assets/kotlin.svg";
 
 const textReveal = {
-  hidden: { opacity: 0, y: 80, skewY: 4 },
-  visible: (i: number) => ({
+  hidden: {
+    opacity: 0,
+    y: 60,
+    skewY: 3,
+  },
+  visible: (index: number) => ({
     opacity: 1,
     y: 0,
     skewY: 0,
-    transition: { duration: 0.8, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] as const },
+    transition: {
+      duration: 0.8,
+      delay: index * 0.15,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
   }),
 };
 
-// Floating tech icons around the hero
 const floatingIcons = [
-  { icon: <FcAndroidOs />, label: "Android", x: "8%", y: "18%", size: 48, delay: 0, duration: 5 },
-  { icon: <img src={app_store} alt="apps" />, label: "iOS", x: "85%", y: "15%", size: 44, delay: 0.5, duration: 6 },
-  { icon: <img src={flutter} alt="apps" />, label: "Flutter", x: "5%", y: "70%", size: 40, delay: 1, duration: 4.5 },
-  { icon: <img src={firebase} alt="apps" />, label: "Firebase", x: "15%", y: "45%", size: 36, delay: 0.8, duration: 4 },
-  { icon: <img src={dart} alt="apps" />, label: "Dart", x: "88%", y: "40%", size: 34, delay: 2, duration: 5 },
-  { icon: <img src={swift} alt="apps" />, label: "Swift", x: "75%", y: "80%", size: 38, delay: 0.3, duration: 6.5 },
-  { icon: <img src={kotlin} alt="apps" />, label: "Kotlin", x: "20%", y: "85%", size: 36, delay: 1.2, duration: 4.8 },
+  {
+    icon: <FcAndroidOs />,
+    label: "Android",
+    x: "8%",
+    y: "18%",
+    size: 48,
+    delay: 0,
+    duration: 5,
+  },
+  {
+    icon: <img src={appStore} alt="iOS" className="h-full w-full" />,
+    label: "iOS",
+    x: "85%",
+    y: "15%",
+    size: 44,
+    delay: 0.5,
+    duration: 6,
+  },
+  {
+    icon: <img src={flutter} alt="Flutter" className="h-full w-full" />,
+    label: "Flutter",
+    x: "5%",
+    y: "70%",
+    size: 40,
+    delay: 1,
+    duration: 4.5,
+  },
+  {
+    icon: <img src={firebase} alt="Firebase" className="h-full w-full" />,
+    label: "Firebase",
+    x: "15%",
+    y: "45%",
+    size: 36,
+    delay: 0.8,
+    duration: 4,
+  },
+  {
+    icon: <img src={dart} alt="Dart" className="h-full w-full" />,
+    label: "Dart",
+    x: "88%",
+    y: "40%",
+    size: 34,
+    delay: 2,
+    duration: 5,
+  },
+  {
+    icon: <img src={swift} alt="Swift" className="h-full w-full" />,
+    label: "Swift",
+    x: "75%",
+    y: "80%",
+    size: 38,
+    delay: 0.3,
+    duration: 6.5,
+  },
+  {
+    icon: <img src={kotlin} alt="Kotlin" className="h-full w-full" />,
+    label: "Kotlin",
+    x: "20%",
+    y: "85%",
+    size: 36,
+    delay: 1.2,
+    duration: 4.8,
+  },
 ];
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-6">
-      {/* Animated background grid */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.03 }}
-        transition={{ duration: 2 }}
-        className="absolute inset-0"
+    <section
+      id="home"
+      className="relative flex min-h-screen items-center overflow-x-hidden bg-background px-4 pb-16 pt-24 sm:px-6 sm:pb-20 sm:pt-28 md:px-8 md:py-24 lg:py-28"
+    >
+      {/* Background grid */}
+      <div
+        className="pointer-events-none absolute inset-0 hidden md:block"
         style={{
-          backgroundImage: 'linear-gradient(hsl(160 100% 50%) 1px, transparent 1px), linear-gradient(90deg, hsl(160 100% 50%) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
+          backgroundImage:
+            "linear-gradient(#103d30 1px, #050807 1px), linear-gradient(90deg, #103d30 1px, #050807 1px)",
+          backgroundSize: "60px 60px",
         }}
       />
 
       {/* Floating particles */}
-      {[...Array(6)].map((_, i) => (
+      {[...Array(6)].map((_, index) => (
         <motion.div
-          key={`p-${i}`}
-          className="absolute w-1 h-1 rounded-full"
+          key={`particle-${index}`}
+          className="pointer-events-none absolute hidden h-1 w-1 rounded-full bg-primary md:block"
           style={{
-            backgroundColor: "hsl(160 100% 50% / 0.3)",
-            left: `${15 + i * 15}%`,
-            top: `${20 + (i % 3) * 25}%`,
+            left: `${15 + index * 15}%`,
+            top: `${20 + (index % 3) * 25}%`,
           }}
           animate={{
             y: [0, -30, 0],
-            opacity: [0.2, 0.6, 0.2],
             scale: [1, 1.5, 1],
           }}
           transition={{
-            duration: 3 + i * 0.5,
+            duration: 3 + index * 0.5,
             repeat: Infinity,
-            delay: i * 0.4,
+            delay: index * 0.4,
             ease: "easeInOut",
           }}
         />
       ))}
 
-      {/* Floating tech icons */}
-      {floatingIcons.map((item, i) => (
+      {/* Floating technology icons */}
+      {floatingIcons.map((item, index) => (
         <motion.div
-          key={`icon-${i}`}
-          className="absolute hidden md:flex flex-col items-center gap-1 pointer-events-none select-none"
-          style={{ left: item.x, top: item.y }}
-          initial={{ opacity: 0, scale: 0 }}
+          key={`${item.label}-${index}`}
+          className="pointer-events-none absolute hidden select-none flex-col items-center gap-1 md:flex"
+          style={{
+            left: item.x,
+            top: item.y,
+          }}
+          initial={{
+            scale: 0,
+          }}
           animate={{
-            opacity: [0, 0.7, 0.5, 0.7],
             scale: 1,
             y: [0, -15, 5, -10, 0],
             x: [0, 8, -5, 3, 0],
             rotate: [0, 5, -5, 3, 0],
           }}
           transition={{
-            opacity: { duration: item.duration, repeat: Infinity, delay: item.delay },
-            scale: { duration: 0.6, delay: item.delay + 0.5 },
-            y: { duration: item.duration, repeat: Infinity, delay: item.delay, ease: "easeInOut" },
-            x: { duration: item.duration * 1.3, repeat: Infinity, delay: item.delay, ease: "easeInOut" },
-            rotate: { duration: item.duration * 1.5, repeat: Infinity, delay: item.delay, ease: "easeInOut" },
+            scale: {
+              duration: 0.6,
+              delay: item.delay + 0.5,
+            },
+            y: {
+              duration: item.duration,
+              repeat: Infinity,
+              delay: item.delay,
+              ease: "easeInOut",
+            },
+            x: {
+              duration: item.duration * 1.3,
+              repeat: Infinity,
+              delay: item.delay,
+              ease: "easeInOut",
+            },
+            rotate: {
+              duration: item.duration * 1.5,
+              repeat: Infinity,
+              delay: item.delay,
+              ease: "easeInOut",
+            },
           }}
         >
-          <motion.div
-            className="glass rounded-2xl flex items-center justify-center"
-            style={{ width: item.size, height: item.size }}
-            whileHover={{ scale: 1.3 }}
+          <div
+            className="flex items-center justify-center rounded-2xl border border-[#275746] bg-[#0d1b16] p-2"
+            style={{
+              width: item.size,
+              height: item.size,
+            }}
           >
-            <span style={{ fontSize: item.size * 0.5 }}>{item.icon}</span>
-          </motion.div>
-          <motion.span
-            className="text-[9px] font-display text-muted-foreground/60 tracking-wider uppercase"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.6 }}
-            transition={{ delay: item.delay + 1 }}
-          >
+            <span
+              className="flex h-full w-full items-center justify-center"
+              style={{
+                fontSize: item.size * 0.55,
+              }}
+            >
+              {item.icon}
+            </span>
+          </div>
+
+          <span className="font-display text-[9px] uppercase tracking-wider text-muted-foreground">
             {item.label}
-          </motion.span>
+          </span>
         </motion.div>
       ))}
 
-      <div className="relative z-10 max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-12 items-center">
-        <div className="text-left overflow-hidden">
-          <motion.div custom={0} variants={textReveal} initial="hidden" animate="visible" className="mb-6">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-primary font-display text-sm">
-              <Smartphone className="w-4 h-4" />
-              Software Developer ( Mobile App & Web )
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-12 lg:gap-16">
+        {/* Left content */}
+        <div className="order-1 overflow-visible text-left">
+          <motion.div
+            custom={0}
+            variants={textReveal}
+            initial="hidden"
+            animate="visible"
+            className="mb-5 sm:mb-6"
+          >
+            <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#2d6651] bg-[#0d1b16] px-3 py-2 font-display text-xs text-primary sm:px-4 sm:text-sm">
+              <Smartphone className="h-4 w-4 shrink-0" />
+
+              <span className="leading-5">
+                Software Developer
+                <span className="hidden sm:inline">
+                  {" "}
+                  — Mobile App & Web
+                </span>
+              </span>
             </span>
           </motion.div>
 
-          <div className="overflow-hidden">
+          <div className="overflow-visible">
             <motion.h1
               custom={1}
               variants={textReveal}
               initial="hidden"
               animate="visible"
-              className="text-5xl md:text-6xl lg:text-7xl font-bold font-display leading-tight mb-6"
+              className="mb-5 font-display text-[42px] font-bold leading-[1.08] sm:text-5xl md:mb-6 md:text-6xl lg:text-7xl"
             >
               Turning ideas{" "}
               <motion.span
-                className="text-gradient inline-block"
-                animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-                transition={{ duration: 5, repeat: Infinity }}
-                style={{
-                  backgroundSize: "200% 200%",
-                  backgroundImage: "linear-gradient(135deg, hsl(160 100% 50%), hsl(35 95% 55%), hsl(160 100% 50%))",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
+                className="inline-block text-primary"
+                animate={{
+                  y: [0, -3, 0],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
                 }}
               >
                 into
@@ -150,9 +253,10 @@ const HeroSection = () => {
             variants={textReveal}
             initial="hidden"
             animate="visible"
-            className="text-lg md:text-xl text-muted-foreground font-body max-w-xl mb-10"
+            className="mb-7 max-w-xl font-body text-base leading-7 text-muted-foreground sm:text-lg md:mb-9 md:text-xl md:leading-8"
           >
-            Building Flutter (Dart) apps and intelligent AI-powered full-stack systems
+            Building Flutter and Dart applications alongside intelligent
+            AI-powered full-stack systems.
           </motion.p>
 
           <motion.div
@@ -160,24 +264,35 @@ const HeroSection = () => {
             variants={textReveal}
             initial="hidden"
             animate="visible"
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col gap-3 sm:flex-row sm:gap-4"
           >
             <motion.a
               href="https://drive.google.com/drive/folders/1cX3DzUC-gVV1RMPD0LzIBgcx2wAoBlv7?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.05, boxShadow: "0 0 30px hsl(160 100% 50% / 0.3)" }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-primary text-primary-foreground font-display font-semibold text-sm glow-box"
+              whileHover={{
+                y: -3,
+                scale: 1.02,
+              }}
+              whileTap={{
+                scale: 0.97,
+              }}
+              className="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-primary px-6 py-3 font-display text-sm font-semibold text-primary-foreground sm:w-auto sm:px-8 sm:py-4"
               data-cursor-text="Go"
             >
               Download CV
             </motion.a>
+
             <motion.a
               href="#contact"
-              whileHover={{ scale: 1.05, borderColor: "hsl(160 100% 50% / 0.5)" }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg glass font-display font-semibold text-sm text-foreground transition-colors"
+              whileHover={{
+                y: -3,
+                scale: 1.02,
+              }}
+              whileTap={{
+                scale: 0.97,
+              }}
+              className="inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-[#315f50] bg-[#0d1b16] px-6 py-3 font-display text-sm font-semibold text-foreground transition-colors duration-300 hover:border-primary hover:text-primary sm:w-auto sm:px-8 sm:py-4"
               data-cursor-text="Hi!"
             >
               Get in Touch
@@ -185,46 +300,78 @@ const HeroSection = () => {
           </motion.div>
         </div>
 
-        {/* Image with rotating ring */}
+        {/* Developer image */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="flex justify-center md:justify-end"
+          initial={{
+            opacity: 0,
+            scale: 0.85,
+            rotate: -8,
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            rotate: 0,
+          }}
+          transition={{
+            duration: 1.1,
+            delay: 0.35,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="order-2 flex w-full justify-center pb-2 md:justify-end md:pb-0"
         >
-          <div className="relative">
-            <div className="absolute -inset-6 rounded-full bg-primary/20 blur-3xl animate-pulse-glow" />
-
-            {/* Rotating dashed ring */}
+          <div className="relative flex items-center justify-center">
+            {/* Outer ring */}
             <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute -inset-4 rounded-full border-2 border-dashed border-primary/20"
+              animate={{
+                rotate: 360,
+              }}
+              transition={{
+                duration: 22,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute -inset-3 rounded-full border-2 border-dashed border-primary sm:-inset-4"
             />
 
-            <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-primary via-primary/50 to-accent opacity-60 blur-sm" />
+            {/* Solid image border */}
+            <div className="absolute -inset-1 rounded-full bg-primary" />
+
             <motion.img
               src={developerPhoto}
-              alt="Developer portrait"
+              alt="Abdur Rakib Rafi"
               width={512}
               height={512}
-              className="relative w-72 h-72 md:w-[400px] md:h-[400px] rounded-full object-cover shadow-2xl"
-              whileHover={{ scale: 1.03 }}
-              transition={{ duration: 0.4 }}
+              whileHover={{
+                scale: 1.02,
+              }}
+              transition={{
+                duration: 0.4,
+              }}
+              className="relative h-[250px] w-[250px] rounded-full border-4 border-background object-cover object-top shadow-2xl sm:h-[300px] sm:w-[300px] md:h-[340px] md:w-[340px] lg:h-[400px] lg:w-[400px]"
             />
           </div>
         </motion.div>
       </div>
 
-      <motion.div
-        animate={{ y: [0, 12, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+      {/* Scroll indicator — desktop only */}
+      <motion.a
+        href="#about"
+        aria-label="Scroll to about section"
+        animate={{
+          y: [0, 10, 0],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 md:block"
       >
-        <ArrowDown className="w-5 h-5 text-muted-foreground" />
-      </motion.div>
+        <ArrowDown className="h-5 w-5 text-muted-foreground" />
+      </motion.a>
     </section>
   );
 };
 
 export default HeroSection;
+
