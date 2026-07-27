@@ -16,10 +16,12 @@ const textReveal = {
     y: 60,
     skewY: 3,
   },
+
   visible: (index: number) => ({
     opacity: 1,
     y: 0,
     skewY: 0,
+
     transition: {
       duration: 0.8,
       delay: index * 0.15,
@@ -39,7 +41,13 @@ const floatingIcons = [
     duration: 5,
   },
   {
-    icon: <img src={appStore} alt="iOS" className="h-full w-full" />,
+    icon: (
+      <img
+        src={appStore}
+        alt="iOS"
+        className="h-full w-full object-contain"
+      />
+    ),
     label: "iOS",
     x: "85%",
     y: "15%",
@@ -48,7 +56,13 @@ const floatingIcons = [
     duration: 6,
   },
   {
-    icon: <img src={flutter} alt="Flutter" className="h-full w-full" />,
+    icon: (
+      <img
+        src={flutter}
+        alt="Flutter"
+        className="h-full w-full object-contain"
+      />
+    ),
     label: "Flutter",
     x: "5%",
     y: "70%",
@@ -57,7 +71,13 @@ const floatingIcons = [
     duration: 4.5,
   },
   {
-    icon: <img src={firebase} alt="Firebase" className="h-full w-full" />,
+    icon: (
+      <img
+        src={firebase}
+        alt="Firebase"
+        className="h-full w-full object-contain"
+      />
+    ),
     label: "Firebase",
     x: "15%",
     y: "45%",
@@ -66,7 +86,13 @@ const floatingIcons = [
     duration: 4,
   },
   {
-    icon: <img src={dart} alt="Dart" className="h-full w-full" />,
+    icon: (
+      <img
+        src={dart}
+        alt="Dart"
+        className="h-full w-full object-contain"
+      />
+    ),
     label: "Dart",
     x: "88%",
     y: "40%",
@@ -75,7 +101,13 @@ const floatingIcons = [
     duration: 5,
   },
   {
-    icon: <img src={swift} alt="Swift" className="h-full w-full" />,
+    icon: (
+      <img
+        src={swift}
+        alt="Swift"
+        className="h-full w-full object-contain"
+      />
+    ),
     label: "Swift",
     x: "75%",
     y: "80%",
@@ -84,7 +116,13 @@ const floatingIcons = [
     duration: 6.5,
   },
   {
-    icon: <img src={kotlin} alt="Kotlin" className="h-full w-full" />,
+    icon: (
+      <img
+        src={kotlin}
+        alt="Kotlin"
+        className="h-full w-full object-contain"
+      />
+    ),
     label: "Kotlin",
     x: "20%",
     y: "85%",
@@ -98,29 +136,58 @@ const HeroSection = () => {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen items-center overflow-x-hidden bg-background px-4 pb-16 pt-24 sm:px-6 sm:pb-20 sm:pt-28 md:px-8 md:py-24 lg:py-28"
+      className="
+        relative
+        flex
+        min-h-screen
+        items-center
+        overflow-x-hidden
+        bg-background
+        px-4
+        pb-16
+        pt-24
+        sm:px-6
+        sm:pb-20
+        sm:pt-28
+        md:px-8
+        md:py-24
+        lg:py-28
+      "
     >
-      {/* Background grid */}
+      {/* Background grid — mobile and desktop */}
       <div
-        className="pointer-events-none absolute inset-0 hidden md:block"
+        className="
+          pointer-events-none
+          absolute
+          inset-0
+          bg-[length:36px_36px]
+          sm:bg-[length:46px_46px]
+          md:bg-[length:60px_60px]
+        "
         style={{
           backgroundImage:
             "linear-gradient(#103d30 1px, #050807 1px), linear-gradient(90deg, #103d30 1px, #050807 1px)",
-          backgroundSize: "60px 60px",
         }}
       />
 
-      {/* Floating particles */}
+      {/* Floating particles — mobile and desktop */}
       {[...Array(6)].map((_, index) => (
         <motion.div
           key={`particle-${index}`}
-          className="pointer-events-none absolute hidden h-1 w-1 rounded-full bg-primary md:block"
+          className="
+            pointer-events-none
+            absolute
+            h-1
+            w-1
+            rounded-full
+            bg-primary
+          "
           style={{
-            left: `${15 + index * 15}%`,
-            top: `${20 + (index % 3) * 25}%`,
+            left: `${10 + index * 16}%`,
+            top: `${14 + (index % 3) * 28}%`,
           }}
           animate={{
-            y: [0, -30, 0],
+            y: [0, -22, 0],
             scale: [1, 1.5, 1],
           }}
           transition={{
@@ -132,11 +199,20 @@ const HeroSection = () => {
         />
       ))}
 
-      {/* Floating technology icons */}
+      {/* Floating technology icons — desktop only */}
       {floatingIcons.map((item, index) => (
         <motion.div
           key={`${item.label}-${index}`}
-          className="pointer-events-none absolute hidden select-none flex-col items-center gap-1 md:flex"
+          className="
+            pointer-events-none
+            absolute
+            hidden
+            select-none
+            flex-col
+            items-center
+            gap-1
+            md:flex
+          "
           style={{
             left: item.x,
             top: item.y,
@@ -155,18 +231,21 @@ const HeroSection = () => {
               duration: 0.6,
               delay: item.delay + 0.5,
             },
+
             y: {
               duration: item.duration,
               repeat: Infinity,
               delay: item.delay,
               ease: "easeInOut",
             },
+
             x: {
               duration: item.duration * 1.3,
               repeat: Infinity,
               delay: item.delay,
               ease: "easeInOut",
             },
+
             rotate: {
               duration: item.duration * 1.5,
               repeat: Infinity,
@@ -176,14 +255,29 @@ const HeroSection = () => {
           }}
         >
           <div
-            className="flex items-center justify-center rounded-2xl border border-[#275746] bg-[#0d1b16] p-2"
+            className="
+              flex
+              items-center
+              justify-center
+              rounded-2xl
+              border
+              border-[#275746]
+              bg-[#0d1b16]
+              p-2
+            "
             style={{
               width: item.size,
               height: item.size,
             }}
           >
             <span
-              className="flex h-full w-full items-center justify-center"
+              className="
+                flex
+                h-full
+                w-full
+                items-center
+                justify-center
+              "
               style={{
                 fontSize: item.size * 0.55,
               }}
@@ -192,13 +286,36 @@ const HeroSection = () => {
             </span>
           </div>
 
-          <span className="font-display text-[9px] uppercase tracking-wider text-muted-foreground">
+          <span
+            className="
+              font-display
+              text-[9px]
+              uppercase
+              tracking-wider
+              text-muted-foreground
+            "
+          >
             {item.label}
           </span>
         </motion.div>
       ))}
 
-      <div className="relative z-10 mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-12 lg:gap-16">
+      <div
+        className="
+          relative
+          z-10
+          mx-auto
+          grid
+          w-full
+          max-w-6xl
+          grid-cols-1
+          items-center
+          gap-10
+          md:grid-cols-2
+          md:gap-12
+          lg:gap-16
+        "
+      >
         {/* Left content */}
         <div className="order-1 overflow-visible text-left">
           <motion.div
@@ -208,11 +325,30 @@ const HeroSection = () => {
             animate="visible"
             className="mb-5 sm:mb-6"
           >
-            <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#2d6651] bg-[#0d1b16] px-3 py-2 font-display text-xs text-primary sm:px-4 sm:text-sm">
+            <span
+              className="
+                inline-flex
+                max-w-full
+                items-center
+                gap-2
+                rounded-full
+                border
+                border-[#2d6651]
+                bg-[#0d1b16]
+                px-3
+                py-2
+                font-display
+                text-xs
+                text-primary
+                sm:px-4
+                sm:text-sm
+              "
+            >
               <Smartphone className="h-4 w-4 shrink-0" />
 
               <span className="leading-5">
                 Software Developer
+
                 <span className="hidden sm:inline">
                   {" "}
                   — Mobile App & Web
@@ -227,9 +363,20 @@ const HeroSection = () => {
               variants={textReveal}
               initial="hidden"
               animate="visible"
-              className="mb-5 font-display text-[42px] font-bold leading-[1.08] sm:text-5xl md:mb-6 md:text-6xl lg:text-7xl"
+              className="
+                mb-5
+                font-display
+                text-[42px]
+                font-bold
+                leading-[1.08]
+                sm:text-5xl
+                md:mb-6
+                md:text-6xl
+                lg:text-7xl
+              "
             >
               Turning ideas{" "}
+
               <motion.span
                 className="inline-block text-primary"
                 animate={{
@@ -243,7 +390,9 @@ const HeroSection = () => {
               >
                 into
               </motion.span>
+
               <br />
+
               software
             </motion.h1>
           </div>
@@ -253,7 +402,18 @@ const HeroSection = () => {
             variants={textReveal}
             initial="hidden"
             animate="visible"
-            className="mb-7 max-w-xl font-body text-base leading-7 text-muted-foreground sm:text-lg md:mb-9 md:text-xl md:leading-8"
+            className="
+              mb-7
+              max-w-xl
+              font-body
+              text-base
+              leading-7
+              text-muted-foreground
+              sm:text-lg
+              md:mb-9
+              md:text-xl
+              md:leading-8
+            "
           >
             Building Flutter and Dart applications alongside intelligent
             AI-powered full-stack systems.
@@ -264,7 +424,13 @@ const HeroSection = () => {
             variants={textReveal}
             initial="hidden"
             animate="visible"
-            className="flex flex-col gap-3 sm:flex-row sm:gap-4"
+            className="
+              flex
+              flex-col
+              gap-3
+              sm:flex-row
+              sm:gap-4
+            "
           >
             <motion.a
               href="https://drive.google.com/drive/folders/1cX3DzUC-gVV1RMPD0LzIBgcx2wAoBlv7?usp=sharing"
@@ -277,7 +443,24 @@ const HeroSection = () => {
               whileTap={{
                 scale: 0.97,
               }}
-              className="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-primary px-6 py-3 font-display text-sm font-semibold text-primary-foreground sm:w-auto sm:px-8 sm:py-4"
+              className="
+                inline-flex
+                min-h-12
+                w-full
+                items-center
+                justify-center
+                rounded-xl
+                bg-primary
+                px-6
+                py-3
+                font-display
+                text-sm
+                font-semibold
+                text-primary-foreground
+                sm:w-auto
+                sm:px-8
+                sm:py-4
+              "
               data-cursor-text="Go"
             >
               Download CV
@@ -292,7 +475,30 @@ const HeroSection = () => {
               whileTap={{
                 scale: 0.97,
               }}
-              className="inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-[#315f50] bg-[#0d1b16] px-6 py-3 font-display text-sm font-semibold text-foreground transition-colors duration-300 hover:border-primary hover:text-primary sm:w-auto sm:px-8 sm:py-4"
+              className="
+                inline-flex
+                min-h-12
+                w-full
+                items-center
+                justify-center
+                rounded-xl
+                border
+                border-[#315f50]
+                bg-[#0d1b16]
+                px-6
+                py-3
+                font-display
+                text-sm
+                font-semibold
+                text-foreground
+                transition-colors
+                duration-300
+                hover:border-primary
+                hover:text-primary
+                sm:w-auto
+                sm:px-8
+                sm:py-4
+              "
               data-cursor-text="Hi!"
             >
               Get in Touch
@@ -317,24 +523,39 @@ const HeroSection = () => {
             delay: 0.35,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="order-2 flex w-full justify-center pb-2 md:justify-end md:pb-0"
+          className="
+            order-2
+            flex
+            w-full
+            justify-center
+            pb-2
+            md:justify-end
+            md:pb-0
+          "
         >
-          <div className="relative flex items-center justify-center">
-            {/* Outer ring */}
-            <motion.div
-              animate={{
-                rotate: 360,
-              }}
-              transition={{
-                duration: 22,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute -inset-3 rounded-full border-2 border-dashed border-primary sm:-inset-4"
+          <div
+            className="
+              relative
+              flex
+              w-full
+              items-center
+              justify-center
+            "
+          >
+            {/* Solid border only — no animated ring */}
+            <div
+              className="
+                absolute
+                aspect-square
+                w-[min(300px,88vw)]
+                rounded-full
+                bg-primary
+                min-[400px]:w-[325px]
+                sm:w-[350px]
+                md:w-[360px]
+                lg:w-[410px]
+              "
             />
-
-            {/* Solid image border */}
-            <div className="absolute -inset-1 rounded-full bg-primary" />
 
             <motion.img
               src={developerPhoto}
@@ -347,7 +568,21 @@ const HeroSection = () => {
               transition={{
                 duration: 0.4,
               }}
-              className="relative h-[250px] w-[250px] rounded-full border-4 border-background object-cover object-top shadow-2xl sm:h-[300px] sm:w-[300px] md:h-[340px] md:w-[340px] lg:h-[400px] lg:w-[400px]"
+              className="
+                relative
+                aspect-square
+                w-[min(290px,85vw)]
+                rounded-full
+                border-[5px]
+                border-background
+                object-cover
+                object-top
+                shadow-2xl
+                min-[400px]:w-[315px]
+                sm:w-[340px]
+                md:w-[350px]
+                lg:w-[400px]
+              "
             />
           </div>
         </motion.div>
@@ -365,7 +600,14 @@ const HeroSection = () => {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 md:block"
+        className="
+          absolute
+          bottom-6
+          left-1/2
+          hidden
+          -translate-x-1/2
+          md:block
+        "
       >
         <ArrowDown className="h-5 w-5 text-muted-foreground" />
       </motion.a>
