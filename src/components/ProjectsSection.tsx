@@ -1,126 +1,324 @@
-import { useRef, useState } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+
 import primePilaties from "@/assets/prime_pilaties.webp";
 import tasteUp from "@/assets/tasteUp.webp";
 import nofifyApp from "@/assets/nofify.webp";
-import { FaArrowRight, FaGooglePlay, FaAppStoreIos } from "react-icons/fa6";
-import { X } from "lucide-react";
 
-const projects = [
+import {
+  FaAppStoreIos,
+  FaArrowRight,
+  FaGooglePlay,
+} from "react-icons/fa6";
+
+import { ExternalLink, X } from "lucide-react";
+
+interface Project {
+  title: string;
+  description: string;
+  tags: string[];
+  image: string;
+  playStore: string;
+  appStore: string;
+  number: string;
+}
+
+const projects: Project[] = [
   {
+    number: "01",
     title: "Prime Pilaties",
-    description: "A fitness class booking app where users can purchase credits to book classes, along with a built-in attendance management system to track and manage class participation efficiently.",
+    description:
+      "A fitness class booking app where users can purchase credits to book classes, along with a built-in attendance management system to track and manage class participation efficiently.",
     tags: ["iOS", "Android", "Flutter"],
     image: primePilaties,
-    playStore: "https://play.google.com/store/apps/details?id=com.prime.pilates.app&hl=en",
-    appStore: "https://apps.apple.com/us/app/prime-pilates/id6741531586",
+    playStore:
+      "https://play.google.com/store/apps/details?id=com.prime.pilates.app&hl=en",
+    appStore:
+      "https://apps.apple.com/us/app/prime-pilates/id6741531586",
   },
   {
+    number: "02",
     title: "TasteUp",
-    description: "Seamless QR-based food ordering, smart nearby restaurant discovery, and an engaging gamified loyalty experience.",
+    description:
+      "Seamless QR-based food ordering, smart nearby restaurant discovery, and an engaging gamified loyalty experience.",
     tags: ["Flutter", "Node.js", "Maps API"],
     image: tasteUp,
-    playStore: "https://play.google.com/store/apps/details?id=com.TasteHub.app&hl=en",
-    appStore: "https://apps.apple.com/jp/app/tasteup-app/id6751109669",
+    playStore:
+      "https://play.google.com/store/apps/details?id=com.TasteHub.app&hl=en",
+    appStore:
+      "https://apps.apple.com/jp/app/tasteup-app/id6751109669",
   },
   {
+    number: "03",
     title: "Nofify App",
-    description: "A task management app where users can assign real-time tasks, earn rewards based on completion, and access in-app purchases. ",
+    description:
+      "A task management app where users can assign real-time tasks, earn rewards based on completion, and access in-app purchases.",
     tags: ["Flutter", "Dart", "MongoDB"],
     image: nofifyApp,
-    playStore: "https://play.google.com/store/apps/details?id=com.app.nofify_task&hl=en",
-    appStore: "https://apps.apple.com/pk/app/nofify/id6747436002",
+    playStore:
+      "https://play.google.com/store/apps/details?id=com.app.nofify_task&hl=en",
+    appStore:
+      "https://apps.apple.com/pk/app/nofify/id6747436002",
   },
 ];
 
-const CARD_HEIGHT_MOBILE = 580;
-const CARD_HEIGHT_DESKTOP = 420;
-const CARD_GAP = 20;
-const STACK_OFFSET = 15;
+const DESKTOP_CARD_HEIGHT = 470;
+const DESKTOP_STACK_OFFSET = 18;
 
-// ─── Store Popup ───────────────────────────────────────────────────────────────
+const useDesktopScreen = () => {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+
+    const updateScreenSize = () => {
+      setIsDesktop(mediaQuery.matches);
+    };
+
+    updateScreenSize();
+    mediaQuery.addEventListener("change", updateScreenSize);
+
+    return () => {
+      mediaQuery.removeEventListener("change", updateScreenSize);
+    };
+  }, []);
+
+  return isDesktop;
+};
+
+/* -------------------------------------------------------------------------- */
+/*                                Store Popup                                 */
+/* -------------------------------------------------------------------------- */
 
 interface StorePopupProps {
-  project: typeof projects[number];
+  project: Project;
   onClose: () => void;
 }
 
-const StorePopup = ({ project, onClose }: StorePopupProps) => (
-  <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    className="fixed inset-0 z-50 flex items-center justify-center px-4"
-    style={{ backgroundColor: "hsl(0 0% 0% / 0.6)", backdropFilter: "blur(6px)" }}
-    onClick={onClose}
-  >
+const StorePopup = ({ project, onClose }: StorePopupProps) => {
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, [onClose]);
+
+  return (
     <motion.div
-      initial={{ scale: 0.85, opacity: 0, y: 20 }}
-      animate={{ scale: 1, opacity: 1, y: 0 }}
-      exit={{ scale: 0.85, opacity: 0, y: 20 }}
-      transition={{ type: "spring", stiffness: 300, damping: 25 }}
-      className="glass rounded-2xl p-8 max-w-sm w-full relative border"
-      style={{ borderColor: "hsl(160 100% 50% / 0.15)" }}
-      onClick={(e) => e.stopPropagation()}
+      initial={{ scale: 1.04 }}
+      animate={{ scale: 1 }}
+      exit={{ scale: 1.04 }}
+      transition={{ duration: 0.25 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black px-4 py-8"
+      onClick={onClose}
     >
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 w-7 h-7 rounded-full bg-secondary/60 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+      <motion.div
+        initial={{ scale: 0.9, y: 40 }}
+        animate={{ scale: 1, y: 0 }}
+        exit={{ scale: 0.9, y: 40 }}
+        transition={{
+          type: "spring",
+          stiffness: 280,
+          damping: 24,
+        }}
+        className="relative w-full max-w-md overflow-hidden rounded-[28px] border border-[#245c49] bg-[#0b1512] shadow-[0_24px_80px_#000000]"
+        onClick={(event) => event.stopPropagation()}
       >
-        <X className="w-4 h-4" />
-      </button>
+        <div className="border-b border-[#1d3e34] bg-[#10231d] px-6 py-6 sm:px-8">
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close store popup"
+            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-[#2e5c4d] bg-[#09110f] text-white transition-transform duration-300 hover:rotate-90 hover:border-primary hover:text-primary"
+          >
+            <X className="h-5 w-5" />
+          </button>
 
-      <p className="text-xs text-primary font-display mb-1">// download on</p>
-      <h3 className="text-xl font-bold font-display mb-6">{project.title}</h3>
+          <p className="mb-2 font-display text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+            Available on
+          </p>
 
-      <div className="flex flex-col gap-3">
-        <motion.a
-          href={project.appStore}
-          target="_blank"
-          rel="noopener noreferrer"
-          whileHover={{ scale: 1.03, boxShadow: "0 0 20px hsl(160 100% 50% / 0.2)" }}
-          whileTap={{ scale: 0.97 }}
-          className="flex items-center gap-4 px-5 py-4 rounded-xl bg-primary/10 border border-primary/20 hover:border-primary/40 transition-colors group"
-        >
-          <FaAppStoreIos className="w-7 h-7 text-primary shrink-0" />
-          <div>
-            <p className="text-[10px] text-muted-foreground font-display">Download on the</p>
-            <p className="text-sm font-bold font-display">App Store</p>
-          </div>
-          <span className="ml-auto text-primary/40 group-hover:text-primary transition-colors text-sm">→</span>
-        </motion.a>
+          <h3 className="max-w-[280px] font-display text-2xl font-bold text-white sm:text-3xl">
+            {project.title}
+          </h3>
+        </div>
 
-        <motion.a
-          href={project.playStore}
-          target="_blank"
-          rel="noopener noreferrer"
-          whileHover={{ scale: 1.03, boxShadow: "0 0 20px hsl(160 100% 50% / 0.2)" }}
-          whileTap={{ scale: 0.97 }}
-          className="flex items-center gap-4 px-5 py-4 rounded-xl bg-primary/10 border border-primary/20 hover:border-primary/40 transition-colors group"
-        >
-          <FaGooglePlay className="w-6 h-6 text-primary shrink-0" />
-          <div>
-            <p className="text-[10px] text-muted-foreground font-display">Get it on</p>
-            <p className="text-sm font-bold font-display">Google Play</p>
-          </div>
-          <span className="ml-auto text-primary/40 group-hover:text-primary transition-colors text-sm">→</span>
-        </motion.a>
-      </div>
+        <div className="space-y-4 p-6 sm:p-8">
+          <motion.a
+            href={project.appStore}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ y: -4 }}
+            whileTap={{ scale: 0.98 }}
+            className="group flex min-h-[82px] items-center gap-4 rounded-2xl border border-[#315f50] bg-[#132b23] px-5 py-4 transition-colors duration-300 hover:border-primary hover:bg-[#17382e]"
+          >
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary text-black">
+              <FaAppStoreIos className="h-7 w-7" />
+            </div>
+
+            <div className="min-w-0 flex-1">
+              <p className="font-display text-[11px] uppercase tracking-wider text-[#9badA6]">
+                Download on the
+              </p>
+
+              <p className="font-display text-base font-bold text-white">
+                App Store
+              </p>
+            </div>
+
+            <ExternalLink className="h-5 w-5 shrink-0 text-primary transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
+          </motion.a>
+
+          <motion.a
+            href={project.playStore}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ y: -4 }}
+            whileTap={{ scale: 0.98 }}
+            className="group flex min-h-[82px] items-center gap-4 rounded-2xl border border-[#315f50] bg-[#132b23] px-5 py-4 transition-colors duration-300 hover:border-primary hover:bg-[#17382e]"
+          >
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary text-black">
+              <FaGooglePlay className="h-6 w-6" />
+            </div>
+
+            <div className="min-w-0 flex-1">
+              <p className="font-display text-[11px] uppercase tracking-wider text-[#9badA6]">
+                Get it on
+              </p>
+
+              <p className="font-display text-base font-bold text-white">
+                Google Play
+              </p>
+            </div>
+
+            <ExternalLink className="h-5 w-5 shrink-0 text-primary transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
+          </motion.a>
+        </div>
+      </motion.div>
     </motion.div>
-  </motion.div>
-);
+  );
+};
 
-// ─── Sticky Card ───────────────────────────────────────────────────────────────
+/* -------------------------------------------------------------------------- */
+/*                              Project Content                               */
+/* -------------------------------------------------------------------------- */
 
-interface StickyCardProps {
-  project: typeof projects[number];
+interface ProjectContentProps {
+  project: Project;
+  onOpen: () => void;
+}
+
+const ProjectContent = ({ project, onOpen }: ProjectContentProps) => {
+  return (
+    <div className="grid h-full grid-cols-1 md:grid-cols-[0.95fr_1.05fr]">
+      <div className="order-2 flex flex-col justify-center p-6 sm:p-8 md:order-1 md:p-10 lg:p-12">
+        <div className="mb-5 flex items-center justify-between gap-4">
+          <span className="font-display text-sm font-bold tracking-[0.2em] text-primary">
+            PROJECT {project.number}
+          </span>
+
+          <button
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation();
+              onOpen();
+            }}
+            className="flex h-10 items-center gap-2 rounded-full border border-[#315f50] bg-[#10231d] px-4 font-display text-xs font-semibold text-white transition-colors duration-300 hover:border-primary hover:bg-primary hover:text-black"
+          >
+            <FaGooglePlay className="h-3.5 w-3.5" />
+            <FaAppStoreIos className="h-3.5 w-3.5" />
+          </button>
+        </div>
+
+        <h3 className="mb-4 font-display text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-[42px]">
+          {project.title}
+        </h3>
+
+        <p className="mb-7 max-w-xl font-body text-sm leading-7 text-[#b7c4bf] sm:text-base sm:leading-8">
+          {project.description}
+        </p>
+
+        <div className="mb-8 flex flex-wrap gap-2.5">
+          {project.tags.map((tag) => (
+            <motion.span
+              key={tag}
+              whileHover={{ y: -3 }}
+              className="rounded-full border border-[#315f50] bg-[#10231d] px-4 py-2 font-display text-xs font-semibold text-[#d7e2de] transition-colors duration-300 hover:border-primary hover:text-primary"
+            >
+              {tag}
+            </motion.span>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          onClick={(event) => {
+            event.stopPropagation();
+            onOpen();
+          }}
+          className="group flex w-fit items-center gap-3 font-display text-sm font-bold text-white"
+        >
+          <span className="border-b-2 border-primary pb-1 transition-colors duration-300 group-hover:text-primary">
+            View application
+          </span>
+
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-black transition-transform duration-300 group-hover:translate-x-2">
+            <FaArrowRight className="h-3.5 w-3.5 -rotate-45 transition-transform duration-300 group-hover:rotate-0" />
+          </span>
+        </button>
+      </div>
+
+      <div className="order-1 flex min-h-[280px] items-center justify-center overflow-hidden border-b border-[#1f4036] bg-[#0a100e] p-5 sm:min-h-[360px] sm:p-8 md:order-2 md:min-h-0 md:border-b-0 md:border-l">
+        <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-2xl border border-[#1e493c] bg-[#101d19]">
+          <div className="absolute left-5 top-5 z-10 rounded-full border border-[#315f50] bg-[#07100d] px-3 py-1.5 font-display text-[10px] font-semibold uppercase tracking-[0.15em] text-primary sm:left-7 sm:top-7">
+            Mobile application
+          </div>
+
+          <motion.img
+            src={project.image}
+            alt={`${project.title} application preview`}
+            loading="lazy"
+            whileHover={{ scale: 1.04, y: -6 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="h-[88%] w-[90%] object-contain object-center sm:h-[90%] sm:w-[88%]"
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* -------------------------------------------------------------------------- */
+/*                              Desktop Card                                  */
+/* -------------------------------------------------------------------------- */
+
+interface DesktopStickyCardProps {
+  project: Project;
   index: number;
   total: number;
   containerRef: React.RefObject<HTMLDivElement | null>;
 }
 
-const StickyCard = ({ project, index, total, containerRef }: StickyCardProps) => {
-  const cardRef = useRef<HTMLDivElement>(null);
+const DesktopStickyCard = ({
+  project,
+  index,
+  total,
+  containerRef,
+}: DesktopStickyCardProps) => {
   const [showPopup, setShowPopup] = useState(false);
 
   const { scrollYProgress } = useScroll({
@@ -128,161 +326,205 @@ const StickyCard = ({ project, index, total, containerRef }: StickyCardProps) =>
     offset: ["start start", "end end"],
   });
 
-  const cardProgress = useTransform(
+  const scale = useTransform(
     scrollYProgress,
     [index / total, (index + 1) / total],
-    [1, 0.95]
+    [1, index === total - 1 ? 1 : 0.96],
   );
 
-  const cardOpacity = useTransform(
+  const translateY = useTransform(
     scrollYProgress,
-    [index / total, (index + 0.8) / total, (index + 1) / total],
-    [1, 1, index === total - 1 ? 1 : 0.6]
+    [index / total, (index + 1) / total],
+    [0, index === total - 1 ? 0 : -12],
   );
 
   return (
     <>
       <AnimatePresence>
         {showPopup && (
-          <StorePopup project={project} onClose={() => setShowPopup(false)} />
+          <StorePopup
+            project={project}
+            onClose={() => setShowPopup(false)}
+          />
         )}
       </AnimatePresence>
 
       <div
         className="sticky"
         style={{
-          top: `calc(80px + ${index * STACK_OFFSET}px)`,
-          height: `${CARD_HEIGHT_MOBILE}px`,
-          paddingBottom: `${CARD_GAP}px`,
+          top: `calc(92px + ${index * DESKTOP_STACK_OFFSET}px)`,
+          height: `${DESKTOP_CARD_HEIGHT}px`,
           zIndex: index + 1,
         }}
       >
-        <motion.div
-          ref={cardRef}
-          style={{ scale: cardProgress, opacity: cardOpacity }}
-          initial={{ opacity: 0, y: 60 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
+        <motion.article
+          style={{
+            scale,
+            y: translateY,
+          }}
+          initial={{ y: 70, scale: 0.96 }}
+          whileInView={{ y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{
+            duration: 0.65,
+            ease: [0.22, 1, 0.36, 1],
+          }}
           onClick={() => setShowPopup(true)}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
-          className="glass rounded-2xl overflow-hidden group hover:glow-box transition-shadow duration-500 h-full"
+          className="h-full cursor-pointer overflow-hidden rounded-[30px] border border-[#255344] bg-[#0c1713] shadow-[0_28px_80px_#000000] transition-colors duration-500 hover:border-primary"
           data-cursor-hover
           data-cursor-text="View"
         >
-          <div className="grid md:grid-cols-2 gap-0 h-full grid-rows-[1fr_220px] md:grid-rows-1">
-
-            {/* Left Content */}
-            <div className="p-8 md:p-12 flex flex-col justify-center">
-              <div className="flex items-center gap-3 mb-4">
-                <h3 className="text-2xl md:text-3xl font-bold font-display">{project.title}</h3>
-                <motion.button
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3, type: "spring", stiffness: 300 }}
-                  whileHover={{ scale: 1.1, backgroundColor: "hsl(160 100% 50% / 0.2)" }}
-                  className="text-xs font-display text-primary px-2 py-1 rounded-full bg-primary/10 cursor-pointer flex items-center gap-1"
-                >
-                  <FaGooglePlay className="w-2.5 h-2.5" />
-                  <FaAppStoreIos className="w-2.5 h-2.5" />
-                </motion.button>
-              </div>
-
-              <p className="text-muted-foreground font-body mb-6 leading-relaxed">
-                {project.description}
-              </p>
-
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag, ti) => (
-                  <motion.span
-                    key={tag}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.4 + ti * 0.05 }}
-                    whileHover={{ scale: 1.1, backgroundColor: "hsl(160 100% 50% / 0.15)" }}
-                    className="px-3 py-1 rounded-md bg-secondary text-secondary-foreground font-display text-xs transition-colors"
-                  >
-                    {tag}
-                  </motion.span>
-                ))}
-              </div>
-            </div>
-
-            {/* Right Image */}
-            <div className="relative overflow-hidden flex items-center justify-center bg-black/30 h-full">
-              <motion.img
-                src={project.image}
-                alt={project.title}
-                loading="lazy"
-                className="w-[85%] h-[90%] object-contain drop-shadow-2xl"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-l from-transparent to-card/80 md:block hidden" />
-            </div>
-
-          </div>
-        </motion.div>
+          <ProjectContent
+            project={project}
+            onOpen={() => setShowPopup(true)}
+          />
+        </motion.article>
       </div>
     </>
   );
 };
 
-// ─── Projects Section ──────────────────────────────────────────────────────────
+/* -------------------------------------------------------------------------- */
+/*                               Mobile Card                                  */
+/* -------------------------------------------------------------------------- */
+
+interface MobileProjectCardProps {
+  project: Project;
+  index: number;
+}
+
+const MobileProjectCard = ({
+  project,
+  index,
+}: MobileProjectCardProps) => {
+  const [showPopup, setShowPopup] = useState(false);
+
+  return (
+    <>
+      <AnimatePresence>
+        {showPopup && (
+          <StorePopup
+            project={project}
+            onClose={() => setShowPopup(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      <motion.article
+        initial={{ y: 50, scale: 0.97 }}
+        whileInView={{ y: 0, scale: 1 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{
+          delay: index * 0.08,
+          duration: 0.6,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        onClick={() => setShowPopup(true)}
+        className="overflow-hidden rounded-[24px] border border-[#255344] bg-[#0c1713] shadow-[0_20px_55px_#000000] transition-colors duration-300 hover:border-primary"
+      >
+        <ProjectContent
+          project={project}
+          onOpen={() => setShowPopup(true)}
+        />
+      </motion.article>
+    </>
+  );
+};
+
+/* -------------------------------------------------------------------------- */
+/*                              Projects Section                              */
+/* -------------------------------------------------------------------------- */
 
 const ProjectsSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isDesktop = useDesktopScreen();
+
+  const desktopContainerHeight =
+    projects.length * DESKTOP_CARD_HEIGHT +
+    (projects.length - 1) * DESKTOP_STACK_OFFSET;
 
   return (
-    <section id="projects" className="py-24 px-6">
-      <div className="max-w-6xl mx-auto">
+    <section
+      id="projects"
+      className="overflow-hidden bg-[#050807] px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-28"
+    >
+      <div className="mx-auto max-w-6xl">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 30 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
-          className="mb-16"
+          transition={{ duration: 0.6 }}
+          className="mb-10 sm:mb-14 lg:mb-16"
         >
-          <motion.span
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="text-primary font-display text-sm mb-2 block"
-          >
-            // featured work
-          </motion.span>
-          <h2 className="text-3xl md:text-5xl font-bold font-display">Projects</h2>
+          <div className="mb-4 flex items-center gap-3">
+            <span className="h-[2px] w-10 bg-primary sm:w-14" />
+
+            <span className="font-display text-xs font-bold uppercase tracking-[0.25em] text-primary sm:text-sm">
+              Featured work
+            </span>
+          </div>
+
+          <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+            <h2 className="max-w-2xl font-display text-4xl font-bold leading-[1.1] text-white sm:text-5xl lg:text-6xl">
+              Selected projects built with purpose.
+            </h2>
+
+            <p className="max-w-md font-body text-sm leading-7 text-[#9aaba5] sm:text-base">
+              A collection of mobile products focused on usability,
+              performance and meaningful user experiences.
+            </p>
+          </div>
         </motion.div>
 
-        <div
-          ref={containerRef}
-          style={{
-            height: `${projects.length * CARD_HEIGHT_MOBILE + (projects.length - 1) * STACK_OFFSET}px`,
-          }}
-        >
-          {projects.map((project, i) => (
-            <StickyCard
-              key={project.title}
-              project={project}
-              index={i}
-              total={projects.length}
-              containerRef={containerRef}
-            />
-          ))}
-        </div>
+        {isDesktop ? (
+          <div
+            ref={containerRef}
+            style={{
+              height: `${desktopContainerHeight}px`,
+            }}
+          >
+            {projects.map((project, index) => (
+              <DesktopStickyCard
+                key={project.title}
+                project={project}
+                index={index}
+                total={projects.length}
+                containerRef={containerRef}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="space-y-7">
+            {projects.map((project, index) => (
+              <MobileProjectCard
+                key={project.title}
+                project={project}
+                index={index}
+              />
+            ))}
+          </div>
+        )}
 
-        {/* Explore More Button */}
-        <div className="mt-12 flex justify-center">
-          <a  
-            href="http://drive.google.com/drive/folders/1pLrDX9gCw4AYvb45jEM4X3YeK_ef-Hrr"
+        <motion.div
+          initial={{ y: 30 }}
+          whileInView={{ y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mt-12 flex justify-center sm:mt-16"
+        >
+          <a
+            href="https://drive.google.com/drive/folders/1pLrDX9gCw4AYvb45jEM4X3YeK_ef-Hrr"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex justify-center gap-2 items-center mx-auto shadow-xl text-lg bg-transparent text-primary backdrop-blur-md lg:font-semibold isolation-auto border-primary before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-secondary hover:text-gray-50 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 overflow-hidden border-2 rounded-full group"
+            className="group flex min-h-14 w-full items-center justify-center gap-3 rounded-full border-2 border-primary bg-[#08100d] px-6 py-3 font-display text-sm font-bold text-primary transition-colors duration-300 hover:bg-primary hover:text-black sm:w-auto sm:min-w-[210px] sm:text-base"
           >
             Explore More
-            <FaArrowRight className="w-8 h-8 justify-end group-hover:rotate-0 text-primary group-hover:bg-transparent ease-linear duration-300 rounded-full border border-primary group-hover:border-none p-2 -rotate-45" />
-          </a>  {/* ← এখানে শেষ */}
-        </div>
+
+            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-primary bg-[#050807] text-primary transition-transform duration-300 group-hover:translate-x-1 group-hover:border-black group-hover:bg-black">
+              <FaArrowRight className="h-4 w-4 -rotate-45 transition-transform duration-300 group-hover:rotate-0" />
+            </span>
+          </a>
+        </motion.div>
       </div>
     </section>
   );
