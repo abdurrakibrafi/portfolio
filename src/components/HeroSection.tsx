@@ -1,13 +1,7 @@
 import { motion } from "framer-motion";
 import { Smartphone, ArrowDown } from "lucide-react";
-import developerPhoto from "@/assets/developer-photo.png";
+import developerPhoto from "@/assets/rafi.jpeg";
 import { FcAndroidOs } from "react-icons/fc";
-import { FaApple } from "react-icons/fa";
-import { FaFlutter } from "react-icons/fa6";
-import { SiFirebase } from "react-icons/si";
-import { FaDartLang } from "react-icons/fa6";
-import { DiSwift } from "react-icons/di";
-import { TbBrandKotlin } from "react-icons/tb";
 import app_store from "@/assets/app_store.svg";
 import flutter from "@/assets/flutter.svg";
 import firebase from "@/assets/firebase.svg";
