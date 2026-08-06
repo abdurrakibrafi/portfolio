@@ -465,9 +465,7 @@ const ProjectsSection = () => {
           </div>
 
           <div className="flex flex-col justify-between md:flex-row md:items-end">
-           
 
-            
           </div>
         </motion.div>
 

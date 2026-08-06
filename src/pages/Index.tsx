@@ -5,18 +5,24 @@ import SkillsSection from "@/components/SkillsSection";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
 import CustomCursor from "@/components/CustomCursor";
+import ExperienceSection from "@/components/experiance";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen overflow-x-hidden bg-background">
       <CustomCursor />
       <Navbar />
-      <HeroSection />
-      <ProjectsSection />
-      <SkillsSection />
-      <AboutSection />
-      <ContactSection />
-      <footer className="py-8 text-center text-muted-foreground font-display text-xs border-t border-border">
+
+      <main>
+        <HeroSection />
+        <ProjectsSection />
+        <ExperienceSection />
+        <SkillsSection />
+        <AboutSection />
+        <ContactSection />
+      </main>
+
+      <footer className="border-t border-border py-8 text-center font-display text-xs text-muted-foreground">
         © 2026 Abdur Rakib Rafi — All Rights Reserved
       </footer>
     </div>
