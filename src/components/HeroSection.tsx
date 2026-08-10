@@ -146,11 +146,11 @@ const HeroSection = () => {
         px-4
         pb-16
         pt-24
-        sm:px-6
-        sm:pb-20
-        sm:pt-28
-        md:px-8
-        md:py-14
+        // sm:px-6
+        // sm:pb-20
+        // sm:pt-28
+        md:px-0
+        md:py-0
         lg:py-1
       "
     >

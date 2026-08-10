@@ -57,7 +57,18 @@ const SkillsSection = () => {
   return (
     <section
       id="skills"
-      className="px-2 py-6 sm:px-6 sm:py-10 md:py-15 lg:py-20"
+      className="
+        bg-[#050807]
+        px-4
+        py-10
+        min-[375px]:px-5
+        sm:px-6
+        sm:py-12
+        md:px-8
+        md:py-14
+        lg:px-10
+        lg:py-16
+      "
     >
       <div className="mx-auto max-w-6xl">
         {/* Section heading */}

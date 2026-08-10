@@ -444,10 +444,23 @@ const ProjectsSection = () => {
     (projects.length - 1) * DESKTOP_STACK_OFFSET;
 
   return (
-    <section
-      id="projects"
-      className="overflow-hidden bg-[#050807] px-2 py-20 sm:px-3 sm:py-12 lg:px-4 lg:py-10"
-    >
+<section
+  id="projects"
+  className="
+    overflow-hidden
+    bg-[#050807]
+    px-3
+    pt-4
+    pb-10
+    sm:px-4
+    sm:pt-6
+    sm:pb-12
+    md:px-4
+    md:py-4
+    lg:px-4
+    lg:py-4
+  "
+>
       <div className="mx-auto max-w-6xl">
         <motion.div
           initial={{ y: 30 }}
