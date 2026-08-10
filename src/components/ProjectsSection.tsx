@@ -446,7 +446,7 @@ const ProjectsSection = () => {
   return (
     <section
       id="projects"
-      className="overflow-hidden bg-[#050807] px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-28"
+      className="overflow-hidden bg-[#050807] px-2 py-20 sm:px-3 sm:py-12 lg:px-4 lg:py-10"
     >
       <div className="mx-auto max-w-6xl">
         <motion.div
