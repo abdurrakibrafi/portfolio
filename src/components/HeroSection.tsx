@@ -415,8 +415,7 @@ const HeroSection = () => {
               md:leading-8
             "
           >
-            Building Flutter and Dart applications alongside intelligent
-            AI-powered full-stack systems.
+        Building Mobile and Web applications alongside intelligent AI-powered full-stack systems.
           </motion.p>
 
           <motion.div
