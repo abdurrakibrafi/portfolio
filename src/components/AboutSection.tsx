@@ -126,11 +126,8 @@ const AboutSection = () => {
             {/* Description */}
             <div className="space-y-3 sm:space-y-4">
               <p className="font-body text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-                Mobile Application Developer with 3+ years of
-                experience building scalable and high-performance
-                applications. Skilled in mobile and web development,
-                with a strong focus on cross-platform mobile
-                solutions.
+                Mobile & Web Application Developer with 3+ years of experience building scalable, high-performance applications. Skilled in both mobile and web development, with a strong focus on cross-platform mobile solutions and modern web technologies.
+
               </p>
 
               <p className="font-body text-sm leading-7 text-muted-foreground sm:text-base">
@@ -185,11 +182,10 @@ const AboutSection = () => {
                     duration: 0.3,
                   },
                 }}
-                className={`flex min-h-[130px] flex-col items-center justify-center rounded-2xl border border-border bg-card p-4 text-center sm:min-h-[160px] sm:p-6 ${
-                  index === stats.length - 1
+                className={`flex min-h-[130px] flex-col items-center justify-center rounded-2xl border border-border bg-card p-4 text-center sm:min-h-[160px] sm:p-6 ${index === stats.length - 1
                     ? "col-span-2"
                     : ""
-                }`}
+                  }`}
               >
                 <div className="mb-1 font-display text-3xl font-bold text-primary sm:mb-2 sm:text-4xl">
                   {stat.value}
