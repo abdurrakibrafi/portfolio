@@ -20,16 +20,16 @@ interface Experience {
 const experiences: Experience[] = [
   {
     id: 1,
-    company: "Code Crafters International",
-    position: "Flutter Developer",
-    location: "Dhaka, Bangladesh",
-    duration: "January 2024 — Present",
+    company: "Sparktech Agency",
+    position: "Software Developer",
+    location: "Aqua Tower 43, Mohakhali C/A, Dhaka, Bangladesh",
+    duration: "Jun 2024 — Present",
     employmentType: "Full-time",
     description:
       "Building responsive, scalable and production-ready mobile applications for Android and iOS using Flutter.",
     responsibilities: [
       "Develop and maintain cross-platform Flutter applications.",
-      "Integrate REST APIs, Firebase, Google Maps and payment gateways.",
+      "Integrate REST APIs, Firebase, Google Maps, real-time systems and payment gateways.",
       "Publish and manage applications on App Store and Google Play.",
       "Collaborate with designers, backend developers and project managers.",
     ],
@@ -38,17 +38,21 @@ const experiences: Experience[] = [
       "Dart",
       "Firebase",
       "REST API",
+      "GraphQL",
+      "WebSocket",
       "GetX",
+      "Bloc",
+      "Payment Gateway",
       "Google Maps",
     ],
   },
   {
     id: 2,
-    company: "Freelance & Remote Projects",
+    company: "QuickTech IT Limited",
     position: "Mobile Application Developer",
-    location: "Remote",
-    duration: "2022 — 2024",
-    employmentType: "Freelance",
+    location: "Dhaka, Bangladesh",
+    duration: "Sept 2023 — Jun 2024",
+    employmentType: "On-Site",
     description:
       "Worked with international clients to transform business ideas and Figma designs into complete mobile applications.",
     responsibilities: [
@@ -59,124 +63,231 @@ const experiences: Experience[] = [
     ],
     technologies: [
       "Flutter",
-      "Node.js",
-      "MongoDB",
+      "Dart",
+      "Firebase",
+      "REST API",
       "Socket.io",
       "Stripe",
       "Figma",
     ],
   },
+  {
+    id: 3,
+    company: "MarsCodez",
+    position: "Intern App Developer",
+    location: "Remote",
+    duration: "Mar 2023 — Aug 2023",
+    employmentType: "Internship",
+    description:
+      "Built custom mobile applications for different business needs, focusing on clean UI, smooth performance and reliable backend integration.",
+    responsibilities: [
+      "Developed Flutter applications from design to deployment.",
+      "Integrated APIs, authentication and Firebase services.",
+      "Implemented responsive UI for multiple screen sizes.",
+      "Handled bug fixing, testing and application maintenance.",
+    ],
+    technologies: [
+      "Flutter",
+      "Dart",
+      "Firebase",
+      "REST API",
+      "Provider",
+      "Git",
+    ],
+  },
 ];
 
-interface ExperienceItemProps {
+interface ExperienceCardProps {
   experience: Experience;
   index: number;
-  isLast: boolean;
 }
 
-const ExperienceItem = ({
-  experience,
-  index,
-  isLast,
-}: ExperienceItemProps) => {
-  return (
-    <motion.article
-      initial={{ y: 40 }}
-      whileInView={{ y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{
-        duration: 0.6,
-        delay: index * 0.1,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      className="relative grid grid-cols-[36px_1fr] gap-4 sm:grid-cols-[48px_1fr] sm:gap-6"
-    >
-      {/* Timeline */}
-      <div className="relative flex justify-center">
-        <span className="relative z-10 mt-1 flex h-9 w-9 items-center justify-center rounded-full bg-primary text-black sm:h-11 sm:w-11">
-          <BriefcaseBusiness className="h-4 w-4 sm:h-5 sm:w-5" />
-        </span>
+interface ExperienceContentProps {
+  experience: Experience;
+  align: "left" | "right";
+}
 
-        {!isLast && (
-          <span className="absolute bottom-0 top-11 w-px bg-primary/25 sm:top-14" />
-        )}
+const ExperienceContent = ({
+  experience,
+  align,
+}: ExperienceContentProps) => {
+  const isRightAligned = align === "right";
+
+  return (
+    <div
+      className={`w-full min-w-0 max-w-xl ${isRightAligned ? "md:ml-auto md:text-right" : ""
+        }`}
+    >
+      <div
+        className={`mb-3 flex flex-wrap items-center gap-3 ${isRightAligned ? "md:justify-end" : ""
+          }`}
+      >
+        <span className="font-display text-[11px] font-bold uppercase tracking-[0.18em] text-primary sm:text-xs">
+          {experience.employmentType}
+        </span>
       </div>
 
-      {/* Content */}
-      <div className={isLast ? "" : "pb-14 sm:pb-20"}>
-        <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-2">
-          <span className="font-display text-xs font-bold uppercase tracking-[0.18em] text-primary">
-            {experience.employmentType}
+      <h3 className="break-words font-display text-xl font-bold leading-tight text-white sm:text-2xl lg:text-3xl">
+        {experience.position}
+      </h3>
+
+      <p className="mt-2 break-words font-display text-base font-semibold text-primary sm:text-lg">
+        {experience.company}
+      </p>
+
+      <div
+        className={`mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-6 ${isRightAligned ? "md:justify-end" : ""
+          }`}
+      >
+        <div className="flex min-w-0 items-start gap-2 text-[#9bada6]">
+          <CalendarDays className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+
+          <span className="min-w-0 break-words font-body text-sm leading-5">
+            {experience.duration}
           </span>
+        </div>
 
-          <span className="font-body text-xs text-[#7f938b]">
-            Experience {String(index + 1).padStart(2, "0")}
+        <div className="flex min-w-0 items-start gap-2 text-[#9bada6]">
+          <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+
+          <span className="min-w-0 break-words font-body text-sm leading-5">
+            {experience.location}
           </span>
         </div>
+      </div>
 
-        <h3 className="font-display text-2xl font-bold leading-tight text-white sm:text-3xl lg:text-4xl">
-          {experience.position}
-        </h3>
 
-        <p className="mt-2 font-display text-lg font-semibold text-primary sm:text-xl">
-          {experience.company}
-        </p>
 
-        <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3">
-          <div className="flex items-center gap-2 text-[#9bada6]">
-            <CalendarDays className="h-4 w-4 text-primary" />
+      <div className="mt-6">
+        <h4 className="font-display text-xs font-bold uppercase tracking-[0.14em] text-white sm:text-sm">
+          Key responsibilities
+        </h4>
 
-            <span className="font-body text-sm">
-              {experience.duration}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2 text-[#9bada6]">
-            <MapPin className="h-4 w-4 text-primary" />
-
-            <span className="font-body text-sm">
-              {experience.location}
-            </span>
-          </div>
-        </div>
-
-        <p className="mt-6 max-w-3xl font-body text-sm leading-7 text-[#aebbb6] sm:text-base sm:leading-8">
-          {experience.description}
-        </p>
-
-        <div className="mt-7">
-          <h4 className="font-display text-sm font-bold uppercase tracking-[0.14em] text-white">
-            Key responsibilities
-          </h4>
-
-          <div className="mt-4 space-y-3">
-            {experience.responsibilities.map((responsibility) => (
-              <div
-                key={responsibility}
-                className="flex max-w-3xl items-start gap-3"
-              >
-                <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-
-                <p className="font-body text-sm leading-6 text-[#9bada6]">
-                  {responsibility}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-7 flex flex-wrap gap-x-4 gap-y-2">
-          {experience.technologies.map((technology) => (
-            <motion.span
-              key={technology}
-              whileHover={{ y: -2 }}
-              className="font-display text-xs font-semibold text-[#c4d0cb] transition-colors duration-300 hover:text-primary"
+        <div className="mt-4 space-y-3">
+          {experience.responsibilities.map((responsibility) => (
+            <div
+              key={responsibility}
+              className={`flex min-w-0 items-start gap-3 ${isRightAligned ? "md:flex-row-reverse" : ""
+                }`}
             >
-            </motion.span>
+              <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+
+              <p className="min-w-0 break-words font-body text-sm leading-6 text-[#9bada6]">
+                {responsibility}
+              </p>
+            </div>
           ))}
         </div>
       </div>
-    </motion.article>
+
+      <div
+        className={`mt-6 flex flex-wrap gap-x-4 gap-y-2 ${isRightAligned ? "md:justify-end" : ""
+          }`}
+      >
+        {experience.technologies.map((technology) => (
+          <motion.span
+            key={technology}
+            whileHover={{ y: -2 }}
+            className="break-words font-display text-xs font-semibold text-[#c4d0cb] transition-colors duration-300 hover:text-primary"
+          >
+          </motion.span>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const ExperienceCard = ({
+  experience,
+  index,
+}: ExperienceCardProps) => {
+  const isLeft = index % 2 === 0;
+  const isLast = index === experiences.length - 1;
+
+  return (
+    <div className="relative">
+      {/* Mobile */}
+      <div className="relative flex gap-4 md:hidden">
+        <div className="relative flex w-9 shrink-0 justify-center">
+          <span className="relative z-10 flex h-9 w-9 items-center justify-center rounded-full bg-primary text-black">
+            <BriefcaseBusiness className="h-4 w-4" />
+          </span>
+
+          {!isLast && (
+            <span className="absolute left-1/2 top-9 h-[calc(100%+24px)] w-px -translate-x-1/2 bg-primary/25" />
+          )}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{
+            duration: 0.55,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="min-w-0 flex-1 pb-12"
+        >
+          <ExperienceContent
+            experience={experience}
+            align="left"
+          />
+        </motion.div>
+      </div>
+
+      {/* Desktop */}
+      <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_70px_minmax(0,1fr)]">
+        <div className="min-w-0 pr-6 lg:pr-8">
+          {isLeft && (
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{
+                duration: 0.65,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="pb-16"
+            >
+              <ExperienceContent
+                experience={experience}
+                align="right"
+              />
+            </motion.div>
+          )}
+        </div>
+
+        <div className="relative flex justify-center">
+          <span className="relative z-10 flex h-11 w-11 items-center justify-center rounded-full bg-primary text-black">
+            <BriefcaseBusiness className="h-5 w-5" />
+          </span>
+
+          {!isLast && (
+            <span className="absolute top-11 h-[calc(100%+24px)] w-px bg-primary/25" />
+          )}
+        </div>
+
+        <div className="min-w-0 pl-6 lg:pl-8">
+          {!isLeft && (
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{
+                duration: 0.65,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="pb-16"
+            >
+              <ExperienceContent
+                experience={experience}
+                align="left"
+              />
+            </motion.div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -184,58 +295,52 @@ const ExperienceSection = () => {
   return (
     <section
       id="experience"
-      className="bg-[#050807] px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-28"
+      className="overflow-hidden bg-[#050807] px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16"
     >
-      <div className="mx-auto max-w-6xl">
-        {/* Heading */}
+      <div className="mx-auto w-full max-w-6xl">
         <motion.div
-          initial={{ y: 30 }}
-          whileInView={{ y: 0 }}
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-14 sm:mb-20"
+          className="mb-10 sm:mb-14"
         >
           <div className="mb-4 flex items-center gap-3">
-            <span className="h-[2px] w-10 bg-primary sm:w-14" />
+            <span className="h-[2px] w-8 shrink-0 bg-primary sm:w-12" />
 
-            <span className="font-display text-xs font-bold uppercase tracking-[0.25em] text-primary sm:text-sm">
-              Professional journey
+            <span className="font-display text-[11px] font-bold uppercase tracking-[0.2em] text-primary sm:text-sm sm:tracking-[0.25em]">
+              Professional Journey
             </span>
           </div>
 
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div>
-              <h2 className="max-w-3xl font-display text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
-                My work
-                <span className="text-primary"> experience.</span>
+          <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+            <div className="min-w-0">
+              <h2 className="max-w-3xl break-words font-display text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
+                 Work
+                <span className="text-primary"> experience</span>
               </h2>
 
-              <p className="mt-5 max-w-2xl font-body text-sm leading-7 text-[#9bada6] sm:text-base sm:leading-8">
-                A summary of my professional experience, responsibilities and
-                the technologies I have worked with.
-              </p>
+          
             </div>
 
-            <div>
-              <p className="font-display text-4xl font-bold text-primary sm:text-5xl">
+            <div className="shrink-0">
+              <p className="font-display text-3xl font-bold text-primary sm:text-4xl">
                 3+
               </p>
 
-              <p className="mt-1 font-body text-xs uppercase tracking-[0.15em] text-[#7f938b]">
+              <p className="mt-1 font-body text-[10px] uppercase tracking-[0.14em] text-[#7f938b] sm:text-xs">
                 Years of experience
               </p>
             </div>
           </div>
         </motion.div>
 
-        {/* Timeline */}
-        <div>
+        <div className="relative">
           {experiences.map((experience, index) => (
-            <ExperienceItem
+            <ExperienceCard
               key={experience.id}
               experience={experience}
               index={index}
-              isLast={index === experiences.length - 1}
             />
           ))}
         </div>
