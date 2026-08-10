@@ -8,7 +8,7 @@ import {
 
 import primePilaties from "@/assets/prime_pilaties.webp";
 import tasteUp from "@/assets/tasteUp.webp";
-import nofifyApp from "@/assets/nofify.webp";
+import nofifyApp from "@/assets/bookatable.webp";
 
 import {
   FaAppStoreIos,
@@ -55,13 +55,13 @@ const projects: Project[] = [
   },
   {
     number: "03",
-    title: "Nofify App",
+    title: "Bookatable.mu App",
     description:
-      "A task management app where users can assign real-time tasks, earn rewards based on completion, and access in-app purchases.",
+      "A restaurant booking app that allows users to browse the menu and make reservations.",
     tags: ["Flutter", "Dart", "MongoDB"],
     image: nofifyApp,
     playStore:
-      "https://play.google.com/store/apps/details?id=com.app.nofify_task&hl=en",
+      "https://apps.apple.com/us/app/bookatable-mu/id6769258531",
     appStore:
       "https://apps.apple.com/pk/app/nofify/id6747436002",
   },
