@@ -225,7 +225,7 @@ interface ProjectContentProps {
 const ProjectContent = ({ project, onOpen }: ProjectContentProps) => {
   return (
     <div className="grid h-full grid-cols-1 md:grid-cols-[0.95fr_1.05fr]">
-      <div className="order-2 flex flex-col justify-center p-6 sm:p-8 md:order-1 md:p-10 lg:p-12">
+      <div className="order-2 flex flex-col justify-center p-3 sm:p-4 md:order-1 md:p-2 lg:p-6">
         <div className="mb-5 flex items-center justify-between gap-4">
           <span className="font-display text-sm font-bold tracking-[0.2em] text-primary">
             PROJECT {project.number}

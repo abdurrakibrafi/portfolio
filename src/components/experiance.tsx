@@ -295,7 +295,7 @@ const ExperienceSection = () => {
   return (
     <section
       id="experience"
-      className="overflow-hidden bg-[#050807] px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16"
+      className="overflow-hidden bg-[#050807] px-4 py-5 sm:px-3 sm:py-7 lg:px-4 lg:py-9"
     >
       <div className="mx-auto w-full max-w-6xl">
         <motion.div

@@ -10,7 +10,7 @@ const socials = [
 
 const ContactSection = () => {
   return (
-    <section id="contact" className="py-24 px-6 relative overflow-hidden">
+    <section id="contact" className="py-20 px-10 relative overflow-hidden">
       {/* Background glow */}
       <motion.div
         className="absolute inset-0 pointer-events-none"

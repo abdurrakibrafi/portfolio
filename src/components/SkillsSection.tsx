@@ -57,7 +57,7 @@ const SkillsSection = () => {
   return (
     <section
       id="skills"
-      className="px-4 py-12 sm:px-6 sm:py-16 md:py-20 lg:py-24"
+      className="px-2 py-6 sm:px-6 sm:py-10 md:py-15 lg:py-20"
     >
       <div className="mx-auto max-w-6xl">
         {/* Section heading */}

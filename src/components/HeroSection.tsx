@@ -151,7 +151,7 @@ const HeroSection = () => {
         sm:pt-28
         md:px-8
         md:py-14
-        lg:py-18
+        lg:py-1
       "
     >
       {/* Background grid — mobile and desktop */}

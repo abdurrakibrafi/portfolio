@@ -58,7 +58,7 @@ const AboutSection = () => {
   return (
     <section
       id="about"
-      className="px-4 py-14 sm:px-6 sm:py-20 lg:py-24"
+      className="px-4 py-4 sm:px-3 sm:py-10 lg:py-14"
     >
       <div className="mx-auto max-w-6xl">
         {/* Section Heading */}
